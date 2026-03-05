@@ -71,15 +71,21 @@ python -m vibeengine.mcp.server
 Để AI trong IDE của bạn (Cursor, Claude Code,...) có thể đọc và phân tích các requests từ Bridge Server, bạn cần cấu hình công cụ MCP.
 
 ### 🔌 Dành cho Cursor / Cline / RooCode (VS Code)
-1. Mở Settings của IDE, tìm phần **MCP Servers** (hoặc MCP extension settings).
-2. Nhấn **+ Add New MCP Server**.
-3. Điền các thông tin sau:
-   - **Name:** `vibelens`
-   - **Type:** `command`
-   - **Command / Executable:** (Chỉ định đường dẫn tuyệt đối đến file python.exe trong môi trường ảo của bạn)
-     - VD Windows: `C:\path\to\vibelens\.venv\Scripts\python.exe`
-     - VD Mac/Linux: `/path/to/vibelens/.venv/bin/python`
-   - **Args (Đối số):** `["-m", "vibeengine.mcp.mcp_server"]`
+Bạn có thể cấu hình trực tiếp trong giao diện MCP Settings hoặc dán cấu hình này vào file `mcp_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "vibelens": {
+      "command": "path/to/vibelens/.venv/Scripts/python.exe",
+      "args": [
+        "-m",
+        "vibeengine.mcp.mcp_server"
+      ]
+    }
+  }
+}
+```
 
 ### 🔌 Dành cho Claude Code (CLI)
 Gõ lệnh này vào terminal của bạn (nhớ sửa lại đường dẫn tuyệt đối tới `.venv`):

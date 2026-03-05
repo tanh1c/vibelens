@@ -19,7 +19,7 @@ VibeLens bridges your browser, a local server, and your AI assistant (via Model 
 ### 1. Install the Core Package
 ```bash
 # Clone the repository
-git clone https://github.com/vibelens/vibelens.git
+git clone https://github.com/tanh1c/vibelens.git
 cd vibelens
 
 # Create a virtual environment
@@ -63,11 +63,21 @@ claude mcp add vibelens -- /absolute/path/to/your/.venv/bin/python -m vibeengine
 ```
 
 **For Cursor / RooCode / Cline:**
-- Go to MCP Settings
-- Add new Command Server
-- Name: `vibelens`
-- Command: `/absolute/path/to/your/.venv/bin/python` (or `python.exe` on Windows)
-- Args: `["-m", "vibeengine.mcp.mcp_server"]`
+Go to your MCP Settings or `mcp_config.json` and add the following configuration:
+
+```json
+{
+  "mcpServers": {
+    "vibelens": {
+      "command": "path/to/vibelens/.venv/Scripts/python.exe",
+      "args": [
+        "-m",
+        "vibeengine.mcp.mcp_server"
+      ]
+    }
+  }
+}
+```
 
 ### Step 4: Prompt your AI
 Ask your AI assistant to analyze the flow. For example:
