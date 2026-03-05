@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 380px;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 13px;
+      background-color: #000000;
+      color: #FFFFFF;
+    }
+
+    .header {
+      padding: 16px;
+      background: radial-gradient(circle at top right, rgba(251, 191, 36, 0.15) 0%, #000000 100%);
+      border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+    }
+
+    .title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 4px;
+      color: #FBBF24;
+      letter-spacing: 0.5px;
+    }
+
+    .subtitle {
+      font-size: 11px;
+      color: #A3A3A3;
+      font-weight: 500;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    .status-badge.recording {
+      background: rgba(239, 68, 68, 0.15);
+      color: #F87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .status-badge.idle {
+      background: rgba(255, 255, 255, 0.05);
+      color: #737373;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.4;
+      }
+    }
+
+    .content {
+      padding: 16px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 12px 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.02);
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: #A3A3A3;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #FBBF24 0%, #D4AF37 100%);
+      color: #000000;
+      box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(251, 191, 36, 0.5);
+    }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.1);
+      color: #F87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.2);
+    }
+
+    .btn-outline {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #D4D4D4;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #FFFFFF;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+      pointer-events: none;
+    }
+
+    .mcp-url {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .mcp-url input {
+      flex: 1;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      font-size: 12px;
+      color: #FFFFFF;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .mcp-url input:focus {
+      border-color: #FBBF24;
+      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.3);
+    }
+
+    .mcp-url .btn {
+      margin-bottom: 0;
+      padding: 10px 16px;
+      border-radius: 8px;
+    }
+
+    .requests-section {
+      margin-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 12px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .requests-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .requests-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #A3A3A3;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .filter-bar input {
+      flex: 1;
+      padding: 7px 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      font-size: 11px;
+      color: #FFFFFF;
+      outline: none;
+    }
+
+    .filter-bar input:focus {
+      border-color: #FBBF24;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 4px;
+    }
+
+    .filter-tab {
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: transparent;
+      color: #737373;
+      transition: all 0.15s;
+    }
+
+    .filter-tab.active {
+      background: rgba(251, 191, 36, 0.15);
+      color: #FBBF24;
+      border-color: rgba(251, 191, 36, 0.3);
+    }
+
+    .filter-tab:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.05);
+      color: #A3A3A3;
+    }
+
+    .requests-list {
+      flex: 1;
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      min-height: 120px;
+      max-height: none;
+    }
+
+    .requests-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .requests-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .requests-list::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+    }
+
+    .request-item {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .request-item:hover {
+      background: rgba(251, 191, 36, 0.05);
+    }
+
+    .request-item.selected {
+      background: rgba(251, 191, 36, 0.1);
+      border-left: 2px solid #FBBF24;
+    }
+
+    .request-item:last-child {
+      border-bottom: none;
+    }
+
+    .request-method {
+      font-weight: 700;
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      min-width: 40px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .method-get {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ADE80;
+    }
+
+    .method-post {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60A5FA;
+    }
+
+    .method-put {
+      background: rgba(251, 191, 36, 0.2);
+      color: #FBBF24;
+    }
+
+    .method-delete {
+      background: rgba(239, 68, 68, 0.2);
+      color: #F87171;
+    }
+
+    .method-patch {
+      background: rgba(168, 85, 247, 0.2);
+      color: #C084FC;
+    }
+
+    .request-url {
+      flex: 1;
+      color: #D4D4D4;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .request-status {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .status-success {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ADE80;
+    }
+
+    .status-error {
+      background: rgba(239, 68, 68, 0.2);
+      color: #F87171;
+    }
+
+    .status-redirect {
+      background: rgba(251, 191, 36, 0.2);
+      color: #FBBF24;
+    }
+
+    .no-requests {
+      padding: 20px;
+      text-align: center;
+      color: #525252;
+      font-size: 12px;
+    }
+
+    /* Detail Panel */
+    .detail-panel {
+      display: none;
+      margin-top: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      max-height: 280px;
+    }
+
+    .detail-panel.visible {
+      display: block;
+    }
+
+    .detail-tabs {
+      display: flex;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .detail-tab {
+      flex: 1;
+      padding: 8px;
+      text-align: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: #737373;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      transition: all 0.15s;
+    }
+
+    .detail-tab.active {
+      color: #FBBF24;
+      background: rgba(251, 191, 36, 0.1);
+      border-bottom: 2px solid #FBBF24;
+    }
+
+    .detail-content {
+      padding: 10px;
+      overflow-y: auto;
+      max-height: 230px;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .detail-content pre {
+      white-space: pre-wrap;
+      word-break: break-all;
+      font-family: 'Cascadia Code', 'Fira Code', monospace;
+      font-size: 10px;
+      color: #D4D4D4;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 8px;
+      border-radius: 6px;
+      margin: 4px 0;
+    }
+
+    .detail-row {
+      display: flex;
+      padding: 3px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .detail-key {
+      color: #FBBF24;
+      min-width: 110px;
+      font-weight: 600;
+      font-size: 10px;
+    }
+
+    .detail-value {
+      color: #D4D4D4;
+      word-break: break-all;
+      font-size: 10px;
+    }
+
+    .detail-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: #737373;
+      text-transform: uppercase;
+      margin: 8px 0 4px;
+    }
+
+    .footer {
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: center;
+      font-size: 11px;
+      color: #737373;
+      font-weight: 500;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <div class="title">VibeLens</div>
+    <div class="subtitle">Network Tracker for AI</div>
+    <div id="statusBadge" class="status-badge idle">
+      <span class="status-dot"></span>
+      <span id="statusText">Idle</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value" id="requestCount">0</div>
+        <div class="stat-label">Requests</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="apiCount">0</div>
+        <div class="stat-label">API Calls</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="errorCount">0</div>
+        <div class="stat-label">Errors</div>
+      </div>
+    </div>
+
+    <div class="mcp-url">
+      <input type="text" id="mcpUrl" placeholder="MCP Server URL" value="http://localhost:8000">
+      <button id="saveMcpBtn" class="btn btn-outline" style="width: auto; padding: 8px;">Save</button>
+    </div>
+
+    <button id="recordBtn" class="btn btn-primary">Start Recording</button>
+    <button id="analyzeBtn" class="btn btn-secondary" disabled>Analyze with AI</button>
+    <button id="clearBtn" class="btn btn-danger" disabled>Clear All</button>
+
+    <div class="requests-section">
+      <div class="requests-header">
+        <span class="requests-title">Captured Requests</span>
+        <span id="requestListCount" style="font-size: 11px; color: #737373;">0 items</span>
+      </div>
+
+      <div class="filter-bar">
+        <input type="text" id="searchInput" placeholder="🔍 Search URL, method...">
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-filter="all">All</button>
+          <button class="filter-tab" data-filter="api">API</button>
+          <button class="filter-tab" data-filter="errors">Err</button>
+        </div>
+      </div>
+
+      <div id="requestsList" class="requests-list">
+        <div class="no-requests">No requests captured yet</div>
+      </div>
+
+      <!-- Detail Panel -->
+      <div id="detailPanel" class="detail-panel">
+        <div class="detail-tabs">
+          <button class="detail-tab active" data-detail="headers">Headers</button>
+          <button class="detail-tab" data-detail="payload">Payload</button>
+          <button class="detail-tab" data-detail="response">Response</button>
+          <button class="detail-tab" data-detail="overview">Info</button>
+        </div>
+        <div id="detailContent" class="detail-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Click "Start Recording" then browse normally
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "VibeLens Network Tracker",
+  "version": "0.1.0",
+  "description": "Track network requests and send to AI via MCP for analysis",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs",
+    "webRequest",
+    "debugger",
+    "cookies"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "devtools_page": "devtools_page.html",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

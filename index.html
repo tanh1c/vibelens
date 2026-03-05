@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeLens - AI-Powered Network Tracker & MCP Server</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#FBBF24',
+                        secondary: '#FDE68A',
+                        cta: '#D4AF37',
+                        bglight: '#000000',
+                        textdark: '#FFFFFF',
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
+                        'glass-hover': '0 12px 40px 0 rgba(251, 191, 36, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #000000;
+            color: #FFFFFF;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(251, 191, 36, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(255, 255, 255, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(212, 175, 55, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        /* Liquid Glass styles */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(251, 191, 36, 0.15);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(251, 191, 36, 0.02);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(251, 191, 36, 0.25) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .glass-panel:hover::before {
+            opacity: 1;
+        }
+
+        .glass-panel:hover {
+            background: rgba(255, 255, 255, 0.09);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px 0 rgba(251, 191, 36, 0.2);
+            border: 1px solid rgba(251, 191, 36, 0.4);
+        }
+
+        /* Abstract shapes */
+        .shape-blob {
+            background: #FBBF24;
+            height: 400px;
+            width: 400px;
+            border-radius: 40% 50% 30% 40%;
+            animation: transform 18s ease-in-out infinite both alternate,
+                movement_one 12s ease-in-out infinite both;
+            opacity: 0.05;
+            position: absolute;
+            z-index: -1;
+            filter: blur(60px);
+        }
+
+        .shape-blob.one {
+            top: 10%;
+            left: 5%;
+        }
+
+        .shape-blob.two {
+            background: #FFFFFF;
+            top: 40%;
+            right: 5%;
+            width: 300px;
+            height: 300px;
+            animation: transform 14s ease-in-out infinite both alternate,
+                movement_two 10s ease-in-out infinite both;
+            opacity: 0.05;
+        }
+
+        @keyframes transform {
+
+            0%,
+            100% {
+                border-radius: 33% 67% 70% 30% / 30% 40% 70% 70%;
+            }
+
+            20% {
+                border-radius: 37% 63% 51% 49% / 37% 35% 35% 63%;
+            }
+
+            40% {
+                border-radius: 36% 64% 64% 36% / 64% 48% 52% 26%;
+            }
+
+            60% {
+                border-radius: 37% 63% 51% 49% / 30% 30% 70% 73%;
+            }
+
+            80% {
+                border-radius: 40% 60% 42% 58% / 51% 51% 49% 59%;
+            }
+        }
+
+        @keyframes movement_one {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            50% {
+                transform: translate(50px, 50px) rotate(10deg);
+            }
+        }
+
+        @keyframes movement_two {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            50% {
+                transform: translate(-50px, -50px) rotate(-10deg);
+            }
+        }
+
+        /* Bento Grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            grid-auto-rows: minmax(180px, auto);
+        }
+
+        @media (max-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Floating Nav */
+        .floating-nav {
+            backdrop-filter: blur(20px);
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Tabs styling */
+        .tab-btn {
+            position: relative;
+            padding: 0.75rem 1.5rem;
+            color: #9CA3AF;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .tab-btn.active {
+            color: #FBBF24;
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #FBBF24;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .tab-btn.active::after {
+            transform: scaleX(1);
+        }
+
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(251, 191, 36, 0.3);
+            border-radius: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(251, 191, 36, 0.6);
+        }
+
+        /* Custom Scrollbar for inner components (code blocks) */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(251, 191, 36, 0.5);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body class="antialiased relative overflow-x-hidden min-h-screen pb-20">
+
+    <!-- Ambient Background Shapes -->
+    <div class="shape-blob one"></div>
+    <div class="shape-blob two"></div>
+
+    <!-- Navigation -->
+    <nav
+        class="fixed top-4 left-4 right-4 z-50 floating-nav rounded-2xl px-6 py-4 shadow-sm transition-all duration-300 max-w-7xl mx-auto flex items-center justify-between">
+        <div class="flex items-center gap-2 cursor-pointer">
+            <div
+                class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-black font-bold">
+                <i data-lucide="scan-eye" class="w-5 h-5"></i>
+            </div>
+            <span class="font-bold text-xl tracking-tight text-white">VibeLens</span>
+        </div>
+        <div class="hidden md:flex gap-8 text-sm font-semibold text-neutral-400">
+            <a onclick="switchTab('features')"
+                class="hover:text-primary transition-colors cursor-pointer text-white tab-nav"
+                data-target="features">Features</a>
+            <a onclick="switchTab('usecases')" class="hover:text-primary transition-colors cursor-pointer tab-nav"
+                data-target="usecases">Use Cases</a>
+            <a onclick="switchTab('docs')" class="hover:text-primary transition-colors cursor-pointer tab-nav"
+                data-target="docs">Setup & Docs</a>
+        </div>
+        <a href="https://github.com/vibelens/vibelens" target="_blank"
+            class="bg-white/10 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-white/20 transition-colors shadow-md cursor-pointer flex items-center gap-2 border border-white/10">
+            <i data-lucide="github" class="w-4 h-4"></i> GitHub
+        </a>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="pt-32 px-6 max-w-7xl mx-auto">
+        <div class="text-center max-w-4xl mx-auto mt-16 mb-20 relative">
+            <!-- Hero Ambient Glow -->
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-primary/20 rounded-full blur-[100px] pointer-events-none -z-10">
+            </div>
+
+            <div
+                class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 shadow-sm text-xs uppercase tracking-wider font-bold text-primary mb-6 cursor-pointer hover:bg-white/10 transition-colors">
+                <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                VibeLens v1.0 is now live
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.1] mb-6">
+                Connect your IDE to the <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Web's Neural
+                    Network</span>
+            </h1>
+            <p class="text-lg md:text-xl text-neutral-400 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
+                VibeLens bridges your Chrome browser, a local MCP Server, and AI assistants like Claude Code. Record
+                traffic visually, analyze patterns with AI, and autonomously generate crawler scripts instantly.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="switchTab('docs')"
+                    class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-cta text-black rounded-xl font-extrabold text-lg hover:shadow-lg hover:shadow-primary/20 transition-all cursor-pointer flex items-center justify-center gap-2 transform hover:-translate-y-1 border border-primary/50">
+                    <i data-lucide="rocket" class="w-5 h-5"></i>
+                    Get Started
+                </button>
+                <button onclick="switchTab('usecases')"
+                    class="w-full sm:w-auto px-8 py-4 glass-panel text-white rounded-xl font-bold text-lg flex items-center justify-center gap-2 cursor-pointer">
+                    <i data-lucide="play-circle" class="w-5 h-5 text-primary"></i>
+                    See Use Cases
+                </button>
+            </div>
+        </div>
+
+        <!-- TABS NAV (Mobile hidden, duplicate of top nav but for internal page state) -->
+        <div class="flex justify-center border-b border-white/10 mb-12 overflow-x-auto">
+            <button class="tab-btn active uppercase tracking-wider text-sm" onclick="switchTab('features')"
+                id="btn-features">The Ecosystem</button>
+            <button class="tab-btn uppercase tracking-wider text-sm" onclick="switchTab('usecases')"
+                id="btn-usecases">Use Cases (LMS Login)</button>
+            <button class="tab-btn uppercase tracking-wider text-sm" onclick="switchTab('docs')" id="btn-docs">Setup &
+                Docs</button>
+        </div>
+
+        <!-- TAB CONTENT: FEATURES -->
+        <div id="tab-features" class="tab-content active mb-32">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="h-8 w-1.5 bg-secondary rounded-full"></div>
+                <h2 class="text-3xl font-bold text-white">The VibeLens Ecosystem</h2>
+            </div>
+
+            <div class="bento-grid">
+                <!-- Large Card 1 -->
+                <div
+                    class="glass-panel p-8 rounded-3xl col-span-4 md:col-span-2 row-span-2 flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent z-0"></div>
+                    <div class="z-10 relative">
+                        <div
+                            class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center shadow-sm mb-6 text-primary border border-white/10">
+                            <i data-lucide="eye" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">Chrome Extension<br><span
+                                class="text-neutral-500 font-medium text-lg">The Observer</span></h3>
+                        <p class="text-neutral-400 font-medium mb-6">Silently monitors your browser traffic. Built with
+                            multi-domain tracking, capturing SSO redirect chains, cookies, headers, and full payload
+                            bodies seamlessly.</p>
+                    </div>
+                    <div
+                        class="z-10 relative bg-black/40 rounded-xl p-4 border border-white/10 font-mono text-sm text-neutral-300">
+                        <div class="flex items-center gap-2 text-primary mb-2"><i data-lucide="activity"
+                                class="w-4 h-4"></i> Captured: POST /cas/login</div>
+                        <div class="text-xs space-y-1">
+                            <div><span class="text-neutral-500">cookies:</span> [ "JSESSIONID", "MoodleSession" ]</div>
+                            <div><span class="text-neutral-500">body:</span> { "username": "student123", "lt": "LT-..."
+                                }</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Large Card 2 -->
+                <div
+                    class="glass-panel p-8 rounded-3xl col-span-4 md:col-span-2 row-span-2 flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent z-0"></div>
+                    <div class="z-10 relative">
+                        <div
+                            class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center shadow-sm mb-6 text-cta border border-white/10">
+                            <i data-lucide="brain-circuit" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">MCP Protocol Server<br><span
+                                class="text-neutral-500 font-medium text-lg">The Brain</span></h3>
+                        <p class="text-neutral-400 font-medium mb-6">A local stdio bridge server connecting directly to
+                            Cursor or Claude Code. It exposes powerful tools enabling AI to analyze APIs and
+                            autonomously execute HTTP requests.</p>
+                    </div>
+                    <div class="z-10 relative flex gap-2 flex-wrap">
+                        <span
+                            class="px-3 py-1.5 bg-black/40 rounded-lg text-xs font-semibold text-neutral-300 border border-white/10">get_captured_requests</span>
+                        <span
+                            class="px-3 py-1.5 bg-black/40 rounded-lg text-xs font-semibold text-neutral-300 border border-white/10">get_auth_info</span>
+                        <span
+                            class="px-3 py-1.5 bg-primary/10 rounded-lg text-xs font-bold text-primary border border-primary/20">execute_http_request</span>
+                        <span
+                            class="px-3 py-1.5 bg-black/40 rounded-lg text-xs font-semibold text-neutral-300 border border-white/10">generate_api_code</span>
+                    </div>
+                </div>
+
+                <!-- Small Cards -->
+                <div
+                    class="glass-panel p-6 rounded-3xl col-span-4 sm:col-span-2 lg:col-span-1 flex flex-col items-start justify-center cursor-pointer">
+                    <i data-lucide="terminal-square" class="w-8 h-8 text-primary mb-4"></i>
+                    <h4 class="text-lg font-bold mb-2 text-white">Claude Code Ready</h4>
+                    <p class="text-sm text-neutral-400 font-medium">Native integration with Claude CLI and Cursor MCP
+                        Configuration.</p>
+                </div>
+
+                <div
+                    class="glass-panel p-6 rounded-3xl col-span-4 sm:col-span-2 lg:col-span-1 flex flex-col items-start justify-center cursor-pointer">
+                    <i data-lucide="shield-check" class="w-8 h-8 text-secondary mb-4"></i>
+                    <h4 class="text-lg font-bold mb-2 text-white">Data Masking</h4>
+                    <p class="text-sm text-neutral-400 font-medium">Automatic redaction of PII, passwords, and tokens
+                        before AI sees them.</p>
+                </div>
+
+                <div
+                    class="glass-panel p-6 rounded-3xl col-span-4 lg:col-span-2 flex flex-row items-center justify-between cursor-pointer space-x-4">
+                    <div>
+                        <h4 class="text-lg font-bold mb-2 flex items-center gap-2 text-white"><i data-lucide="zap"
+                                class="w-5 h-5 text-primary"></i> Zero-Config AI Actions</h4>
+                        <p class="text-sm text-neutral-400 font-medium max-w-sm">"Claude, analyze the login flow I just
+                            did and write a python script for it."</p>
+                    </div>
+                    <div
+                        class="hidden sm:flex w-12 h-12 bg-white/10 rounded-full items-center justify-center text-primary shadow-sm border border-white/10 transition-transform group-hover:translate-x-1">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-20">
+                <div class="flex items-center gap-3 mb-10">
+                    <div class="h-8 w-1.5 bg-cta rounded-full"></div>
+                    <h2 class="text-3xl font-bold text-white">The Typical Workflow</h2>
+                </div>
+
+                <div class="relative">
+                    <div
+                        class="hidden md:block absolute top-[60px] left-[10%] right-[10%] h-1 bg-gradient-to-r from-primary via-secondary to-cta opacity-30 z-0">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+                        <div class="glass-panel p-8 rounded-3xl flex flex-col items-center text-center">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-black/40 shadow-glass flex items-center justify-center text-primary mb-6 text-2xl font-bold border border-white/10">
+                                1</div>
+                            <h4 class="text-xl font-bold mb-3 text-white">Record Network</h4>
+                            <p class="text-neutral-400 font-medium text-sm">Open the Chrome Extension and click "Start
+                                Recording". Browse the target website normally.</p>
+                        </div>
+                        <div class="glass-panel p-8 rounded-3xl flex flex-col items-center text-center">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-black/40 shadow-glass flex items-center justify-center text-secondary mb-6 text-2xl font-bold border border-white/10">
+                                2</div>
+                            <h4 class="text-xl font-bold mb-3 text-white">Bridge to Local</h4>
+                            <p class="text-neutral-400 font-medium text-sm">The FastAPI server receives the network data
+                                while the MCP stdio server exposes it as tools to your IDE.</p>
+                        </div>
+                        <div class="glass-panel p-8 rounded-3xl flex flex-col items-center text-center">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary shadow-glass flex items-center justify-center text-black mb-6 text-2xl font-bold">
+                                3</div>
+                            <h4 class="text-xl font-bold mb-3 text-white">AI Takes Control</h4>
+                            <p class="text-neutral-400 font-medium text-sm">Chat with your AI in Cursor/Claude Code.
+                                Watch it autonomously replicate HTTP requests.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: USE CASES -->
+        <div id="tab-usecases" class="tab-content mb-32">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="h-8 w-1.5 bg-primary rounded-full"></div>
+                <h2 class="text-3xl font-bold text-white">Use Case: Auto-Login Script Generation</h2>
+            </div>
+
+            <p class="text-lg text-neutral-400 mb-8 max-w-3xl">Instead of manually finding execution tokens and tracing
+                302 redirects in DevTools, VibeLens allows an AI agent to reverse-engineer an entire CAS (Central
+                Authentication Service) SSO Login flow in seconds.</p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="glass-panel p-8 rounded-3xl flex flex-col space-y-6">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                        <i data-lucide="message-square-text" class="text-primary w-6 h-6"></i>
+                        The Prompt
+                    </h3>
+                    <div class="bg-black/50 p-6 rounded-2xl border border-white/10 relative">
+                        <p class="font-mono text-sm text-neutral-300 italic leading-relaxed">
+                            "I just recorded myself logging into my university LMS. Please use the MCP tools to read the
+                            captured requests, find the authentication cookies, trace the SSO login API endpoint, and
+                            write a Python script using `httpx` to automatically log in."
+                        </p>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-white flex items-center gap-3 mt-6">
+                        <i data-lucide="cpu" class="text-secondary w-6 h-6"></i>
+                        What the AI Does Under the Hood
+                    </h3>
+                    <ul class="space-y-4 text-sm text-neutral-400 font-mono">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="arrow-right-circle" class="text-primary w-5 h-5 mt-0.5 shrink-0"></i>
+                            <span>Calls <code class="text-white">get_auth_info()</code> to identify the multi-domain
+                                track: <br /> `lms.hcmut.edu.vn` → `sso.hcmut.edu.vn`.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="arrow-right-circle" class="text-primary w-5 h-5 mt-0.5 shrink-0"></i>
+                            <span>Calls <code class="text-white">get_request_detail(23)</code> and parses the HTML to
+                                extract hidden inputs like `lt` (Login Ticket) and `execution` fields.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="arrow-right-circle" class="text-primary w-5 h-5 mt-0.5 shrink-0"></i>
+                            <span>Maps out the POST request for user credentials.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle" class="text-green-400 w-5 h-5 mt-0.5 shrink-0"></i>
+                            <span>Outputs a flawless `httpx` Python script integrating `follow_redirects=True`.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="glass-panel p-8 rounded-3xl relative overflow-hidden">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-3 mb-6">
+                        <i data-lucide="code" class="text-primary w-6 h-6"></i>
+                        The Resulting Python Output
+                    </h3>
+                    <div
+                        class="bg-[#050505] rounded-2xl p-6 shadow-2xl border border-white/10 overflow-x-auto text-xs font-mono text-neutral-300 h-[400px] overflow-y-auto custom-scrollbar">
+                        <pre><span class="text-pink-500">import</span> httpx, re
+
+<span class="text-pink-500">def</span> <span class="text-blue-400">login_lms</span>(username, password):
+    client = httpx.Client(follow_redirects=<span class="text-orange-400">True</span>)
+    
+    <span class="text-emerald-500/80"># 1. Reach SSO Login Page</span>
+    r1 = client.get(<span class="text-amber-400">"https://lms.hcmut.edu.vn/login/index.php?authCAS=CAS"</span>)
+    
+    <span class="text-emerald-500/80"># 2. Extract hidden CAS Fields using Regex</span>
+    lt = re.search(<span class="text-amber-400">r'name="lt"\s+value="([^"]+)"'</span>, r1.text).group(<span class="text-orange-400">1</span>)
+    execution = re.search(<span class="text-amber-400">r'name="execution"\s+value="([^"]+)"'</span>, r1.text).group(<span class="text-orange-400">1</span>)
+    
+    <span class="text-emerald-500/80"># 3. POST Credentials</span>
+    r2 = client.post(
+        <span class="text-amber-400">"https://sso.hcmut.edu.vn/cas/login..."</span>,
+        data={
+            <span class="text-amber-400">"username"</span>: username,
+            <span class="text-amber-400">"password"</span>: password,
+            <span class="text-amber-400">"lt"</span>: lt,
+            <span class="text-amber-400">"execution"</span>: execution,
+            <span class="text-amber-400">"_eventId"</span>: <span class="text-amber-400">"submit"</span>
+        }
+    )
+    
+    <span class="text-emerald-500/80"># 4. Check status & Return Cookies!</span>
+    <span class="text-pink-500">if</span> <span class="text-amber-400">"sso.hcmut.edu.vn/cas/login"</span> <span class="text-pink-500">in</span> str(r2.url):
+        <span class="text-pink-500">raise</span> Exception(<span class="text-amber-400">"❌ Wrong credentials!"</span>)
+        
+    <span class="text-pink-500">return</span> client.cookies.get(<span class="text-amber-400">"MoodleSession"</span>)
+</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 flex justify-center">
+                <div
+                    class="inline-flex items-center gap-3 px-6 py-4 rounded-2xl bg-white/5 border border-primary/20 text-sm text-neutral-300">
+                    <i data-lucide="zap" class="text-primary w-5 h-5"></i>
+                    What took <span class="text-white font-bold">2 hours</span> of manual reverse engineering now takes
+                    <span class="text-white font-bold">30 seconds</span>.
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: DOCS & SETUP -->
+        <div id="tab-docs" class="tab-content mb-32">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="h-8 w-1.5 bg-cta rounded-full"></div>
+                <h2 class="text-3xl font-bold text-white">Setup & Documentation</h2>
+            </div>
+
+            <section class="glass-panel p-8 md:p-12 rounded-3xl border border-white/10 shadow-glass mb-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold text-white mb-4">Start your engine in seconds.</h2>
+                        <p class="text-lg text-neutral-400 font-medium mb-8">Launch the unified infrastructure and
+                            connect your favorite MCP-compatible AI IDE.</p>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary shrink-0 mt-1">
+                                    <i data-lucide="check" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-white">1. Start API Bridge</h5>
+                                    <p class="text-sm text-neutral-400">The listener for your Chrome Extension.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary shrink-0 mt-1">
+                                    <i data-lucide="check" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-white">2. Configure IDE</h5>
+                                    <p class="text-sm text-neutral-400">Just point Cursor or Claude Code to the MCP
+                                        stdio python server.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-[#050505] rounded-2xl p-6 shadow-2xl relative border border-white/10 w-full overflow-hidden group">
+                        <div class="absolute top-4 right-4 flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                        </div>
+                        <div class="mt-4 font-mono text-sm leading-relaxed overflow-x-auto text-neutral-300">
+                            <p><span class="text-emerald-500/80"># 1. Install</span></p>
+                            <p>pip install -e .</p>
+                            <br>
+                            <p><span class="text-emerald-500/80"># 2. Start FastApi Bridge</span></p>
+                            <p><span class="text-primary">python</span> -m vibeengine.mcp.server</p>
+                            <br>
+                            <p><span class="text-emerald-500/80"># 3. Add MCP to Claude Code</span></p>
+                            <p><span class="text-primary">claude mcp add</span> vibelens -- /absolute/path/to/python -m
+                                vibeengine.mcp.mcp_server</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="space-y-8">
+                <!-- Web Extension -->
+                <div class="glass-panel p-8 rounded-3xl">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-secondary border border-white/10">
+                            <i data-lucide="chrome" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">Installing the Chrome Extension</h3>
+                    </div>
+                    <div class="text-neutral-400 leading-relaxed space-y-4">
+                        <ul class="list-disc list-inside space-y-2 ml-2">
+                            <li>Open Google Chrome and navigate to <code
+                                    class="text-primary">chrome://extensions/</code></li>
+                            <li>Toggle <strong>Developer Mode</strong> on in the top right corner.</li>
+                            <li>Click <strong>Load unpacked</strong> and select the <code
+                                    class="text-white text-sm bg-white/10 px-2 py-1 rounded">vibelens/extension/</code>
+                                folder.</li>
+                            <li>Pin the VibeLens icon to your toolbar for easy access. Click "Start Recording" to begin!
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Cursor Setup -->
+                <div class="glass-panel p-8 rounded-3xl">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-primary border border-white/10">
+                            <i data-lucide="code-2" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">Cursor / RooCode Settings</h3>
+                    </div>
+                    <div class="text-neutral-400 leading-relaxed space-y-4">
+                        <p>To connect the MCP Server in VS Code/Cursor:</p>
+                        <ul class="list-disc list-inside space-y-2 ml-2">
+                            <li>Open IDE Settings > MCP Servers > Add New</li>
+                            <li><strong>Name:</strong> <code class="text-primary">vibelens</code></li>
+                            <li><strong>Type:</strong> <code class="text-primary">command</code></li>
+                            <li><strong>Command:</strong> <code
+                                    class="text-white text-sm bg-white/10 px-2 py-1 rounded">/absolute/path/to/your/venv/bin/python</code>
+                            </li>
+                            <li><strong>Args:</strong> <code
+                                    class="text-white text-sm bg-white/10 px-2 py-1 rounded">["-m", "vibeengine.mcp.mcp_server"]</code>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-slate-500 font-medium mt-10 text-sm">
+        <p>VibeLens &copy; 2026. Built with Liquid Glass Architecture.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+
+        function switchTab(tabId) {
+            // Update buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`btn-${tabId}`).classList.add('active');
+
+            // Update nav links colors
+            document.querySelectorAll('.tab-nav').forEach(nav => {
+                nav.classList.remove('text-white');
+            });
+            document.querySelector(`.tab-nav[data-target="${tabId}"]`).classList.add('text-white');
+
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Show new tab directly
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+        }
+    </script>
+</body>
+
+</html>
