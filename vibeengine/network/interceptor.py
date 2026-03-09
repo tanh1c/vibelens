@@ -3,12 +3,14 @@
 import asyncio
 import json
 import logging
+import re
+from collections import OrderedDict
 from datetime import datetime
-from typing import Any
-from pydantic import BaseModel, Field
 from pathlib import Path
+from typing import Any
 
 from playwright.async_api import Page
+from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
 
@@ -44,20 +46,28 @@ class NetworkEntry(BaseModel):
 
 class NetworkRecorder:
     """
-    Network traffic recorder.
+    Network traffic recorder with O(1) lookup performance.
 
     Captures HTTP/HTTPS requests and responses from browser.
-    Inspired by browser-use network recording.
+    Uses OrderedDict for:
+    - O(1) lookup by request_id
+    - Maintains insertion order for iteration
     """
 
     def __init__(self):
-        self.entries: list[NetworkEntry] = []
+        # OrderedDict for O(1) lookup + ordered iteration
+        self._entries: OrderedDict[str, NetworkEntry] = OrderedDict()
         self._recording = False
         self._request_timestamps: dict[str, datetime] = {}
 
+    @property
+    def entries(self) -> list[NetworkEntry]:
+        """Get entries as list (for backward compatibility)."""
+        return list(self._entries.values())
+
     async def start(self, page: Page) -> None:
         """Start recording network traffic"""
-        self.entries = []
+        self._entries = OrderedDict()
         self._request_timestamps = {}
         self._recording = True
 
@@ -87,22 +97,17 @@ class NetworkRecorder:
         )
 
         entry = NetworkEntry(request=request_data)
-        self.entries.append(entry)
+        self._entries[request_id] = entry  # O(1) insert
 
     async def _on_response(self, response) -> None:
-        """Handle response event"""
+        """Handle response event with O(1) lookup"""
         if not self._recording:
             return
 
         request_id = response.url
 
-        # Find matching request
-        entry = None
-        for e in self.entries:
-            if e.request.id == request_id:
-                entry = e
-                break
-
+        # O(1) lookup instead of O(n) linear search
+        entry = self._entries.get(request_id)
         if entry is None:
             return
 
@@ -117,9 +122,7 @@ class NetworkRecorder:
         content_type = response.headers.get("content-type", "")
 
         try:
-            if "application/json" in content_type:
-                body = await response.text()
-            elif "text/" in content_type:
+            if "application/json" in content_type or "text/" in content_type:
                 body = await response.text()
         except Exception as e:
             logger.warning(f"Could not get response body: {e}")
@@ -151,44 +154,53 @@ class NetworkRecorder:
     async def stop(self) -> None:
         """Stop recording"""
         self._recording = False
-        logger.info(f"Network recording stopped. Captured {len(self.entries)} requests")
+        logger.info(f"Network recording stopped. Captured {len(self._entries)} requests")
 
     def get_requests(self) -> list[RequestData]:
         """Get all captured requests"""
-        return [entry.request for entry in self.entries]
+        return [entry.request for entry in self._entries.values()]
 
     def get_responses(self) -> list[ResponseData]:
         """Get all captured responses"""
-        return [entry.response for entry in self.entries if entry.response]
+        return [entry.response for entry in self._entries.values() if entry.response]
 
     def get_entries(self) -> list[NetworkEntry]:
         """Get all network entries"""
-        return self.entries
+        return list(self._entries.values())
+
+    def get_entry_by_id(self, request_id: str) -> NetworkEntry | None:
+        """Get entry by request_id with O(1) lookup."""
+        return self._entries.get(request_id)
 
     def filter_by_url(self, pattern: str) -> list[NetworkEntry]:
-        """Filter entries by URL pattern"""
-        import re
-        return [e for e in self.entries if re.search(pattern, e.request.url)]
+        """Filter entries by URL pattern using compiled regex for performance."""
+        try:
+            regex = re.compile(pattern)
+            return [e for e in self._entries.values() if regex.search(e.request.url)]
+        except re.error:
+            # Fallback to simple string match if regex is invalid
+            return [e for e in self._entries.values() if pattern in e.request.url]
 
     def filter_by_method(self, method: str) -> list[NetworkEntry]:
         """Filter entries by HTTP method"""
-        return [e for e in self.entries if e.request.method.upper() == method.upper()]
+        method_upper = method.upper()
+        return [e for e in self._entries.values() if e.request.method.upper() == method_upper]
 
     def filter_by_status(self, status: int) -> list[NetworkEntry]:
         """Filter entries by status code"""
-        return [e for e in self.entries if e.response and e.response.status == status]
+        return [e for e in self._entries.values() if e.response and e.response.status == status]
 
     def export_har(self, filepath: str | Path) -> None:
         """Export to HAR format"""
         har = {
             "log": {
                 "version": "1.2",
-                "creator": {"name": "VibeLens", "version": "0.1.0"},
+                "creator": {"name": "VibeLens", "version": "0.2.0"},
                 "entries": [],
             }
         }
 
-        for entry in self.entries:
+        for entry in self._entries.values():
             har_entry = {
                 "request": {
                     "method": entry.request.method,
@@ -224,5 +236,13 @@ class NetworkRecorder:
 
     def clear(self) -> None:
         """Clear all captured entries"""
-        self.entries = []
+        self._entries = OrderedDict()
         self._request_timestamps = {}
+
+    def __len__(self) -> int:
+        """Return number of captured entries."""
+        return len(self._entries)
+
+    def __iter__(self):
+        """Iterate over entries."""
+        return iter(self._entries.values())

@@ -11,6 +11,7 @@ let pendingSync = false;
 let trackedDomains = new Set();      // Tất cả domain đang theo dõi
 let redirectChains = {};             // requestId → [url1, url2, ...]
 let capturedCookies = {};            // domain → [{name, value, ...}]
+let currentSessionId = null;         // Database session id
 
 // Load state từ storage khi khởi động
 async function loadState() {
@@ -27,17 +28,20 @@ async function loadState() {
       if (result.vibeLensMcpUrl) {
         mcpServerUrl = result.vibeLensMcpUrl;
       }
+      if (result.vibeLensSessionId) {
+        currentSessionId = result.vibeLensSessionId;
+      }
       resolve();
     });
   });
 }
 
-// Save state vào storage
 function saveState() {
   chrome.storage.local.set({
     vibeLensRecording: isRecording,
     vibeLensRequests: capturedRequests,
-    vibeLensMcpUrl: mcpServerUrl
+    vibeLensMcpUrl: mcpServerUrl,
+    vibeLensSessionId: currentSessionId
   });
 }
 
@@ -141,6 +145,19 @@ async function startRecording(tabId) {
       trackedDomains = new Set();
     }
 
+    // Create a new session in DB
+    try {
+      const res = await fetch(mcpServerUrl + '/sessions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ domain: recordingDomain, name: `Record: ${recordingDomain}` })
+      });
+      const data = await res.json();
+      currentSessionId = data.session_id;
+    } catch (e) {
+      console.error('VibeLens: Failed to create session on bridge', e);
+    }
+
     // Attach debugger
     await chrome.debugger.attach({ tabId }, '1.3');
 
@@ -191,6 +208,9 @@ async function stopRecording() {
     }
 
     chrome.debugger.onEvent.removeListener(onNetworkEvent);
+
+    // Final sync before stopping
+    await syncToBridge(capturedRequests);
 
     isRecording = false;
     activeTabId = null;
@@ -579,6 +599,7 @@ async function syncToBridge(requests) {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        session_id: currentSessionId,
         requests: requests,
         meta: {
           trackedDomains: [...trackedDomains],
@@ -613,7 +634,7 @@ async function sendToAI(requests) {
 
 // Auto-sync khi có requests mới
 setInterval(() => {
-  if (capturedRequests.length > 0) {
+  if (isRecording && capturedRequests.length > 0) {
     syncToBridge(capturedRequests);
   }
 }, 5000);

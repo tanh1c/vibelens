@@ -289,7 +289,7 @@
             <a onclick="switchTab('docs')" class="hover:text-primary transition-colors cursor-pointer tab-nav"
                 data-target="docs">Setup & Docs</a>
         </div>
-        <a href="https://github.com/vibelens/vibelens" target="_blank"
+        <a href="https://github.com/tanh1c/vibelens" target="_blank"
             class="bg-white/10 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-white/20 transition-colors shadow-md cursor-pointer flex items-center gap-2 border border-white/10">
             <i data-lucide="github" class="w-4 h-4"></i> GitHub
         </a>
@@ -306,7 +306,7 @@
             <div
                 class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 shadow-sm text-xs uppercase tracking-wider font-bold text-primary mb-6 cursor-pointer hover:bg-white/10 transition-colors">
                 <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                VibeLens v1.0 is now live
+                VibeLens v2.0 is now live
             </div>
             <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.1] mb-6">
                 Connect your IDE to the <span
@@ -315,7 +315,8 @@
             </h1>
             <p class="text-lg md:text-xl text-neutral-400 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
                 VibeLens bridges your Chrome browser, a local MCP Server, and AI assistants like Claude Code. Record
-                traffic visually, analyze patterns with AI, and autonomously generate crawler scripts instantly.
+                traffic visually, analyze patterns with AI, generate crawler scripts, import HAR files, and monitor
+                endpoints autonomously.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button onclick="switchTab('docs')"
@@ -400,6 +401,10 @@
                             class="px-3 py-1.5 bg-primary/10 rounded-lg text-xs font-bold text-primary border border-primary/20">execute_http_request</span>
                         <span
                             class="px-3 py-1.5 bg-black/40 rounded-lg text-xs font-semibold text-neutral-300 border border-white/10">generate_api_code</span>
+                        <span
+                            class="px-3 py-1.5 bg-secondary/10 rounded-lg text-xs font-bold text-secondary border border-secondary/20">import_har</span>
+                        <span
+                            class="px-3 py-1.5 bg-black/40 rounded-lg text-xs font-semibold text-neutral-300 border border-white/10">generate_scrapling_spider</span>
                     </div>
                 </div>
 
@@ -432,6 +437,38 @@
                         class="hidden sm:flex w-12 h-12 bg-white/10 rounded-full items-center justify-center text-primary shadow-sm border border-white/10 transition-transform group-hover:translate-x-1">
                         <i data-lucide="arrow-right" class="w-5 h-5"></i>
                     </div>
+                </div>
+
+                <!-- New v2.0 Features -->
+                <div
+                    class="glass-panel p-6 rounded-3xl col-span-4 sm:col-span-2 lg:col-span-1 flex flex-col items-start justify-center cursor-pointer">
+                    <i data-lucide="file-json" class="w-8 h-8 text-primary mb-4"></i>
+                    <h4 class="text-lg font-bold mb-2 text-white">HAR Import</h4>
+                    <p class="text-sm text-neutral-400 font-medium">Import HAR files with AI-powered digest summaries.
+                    </p>
+                </div>
+
+                <div
+                    class="glass-panel p-6 rounded-3xl col-span-4 sm:col-span-2 lg:col-span-1 flex flex-col items-start justify-center cursor-pointer">
+                    <i data-lucide="spider" class="w-8 h-8 text-secondary mb-4"></i>
+                    <h4 class="text-lg font-bold mb-2 text-white">Scrapling Integration</h4>
+                    <p class="text-sm text-neutral-400 font-medium">Auto-generate crawler code from captured traffic.
+                    </p>
+                </div>
+
+                <div
+                    class="glass-panel p-6 rounded-3xl col-span-4 sm:col-span-2 lg:col-span-1 flex flex-col items-start justify-center cursor-pointer">
+                    <i data-lucide="clock" class="w-8 h-8 text-cta mb-4"></i>
+                    <h4 class="text-lg font-bold mb-2 text-white">Background Watch</h4>
+                    <p class="text-sm text-neutral-400 font-medium">Monitor endpoints and trigger actions automatically.
+                    </p>
+                </div>
+
+                <div
+                    class="glass-panel p-6 rounded-3xl col-span-4 sm:col-span-2 lg:col-span-1 flex flex-col items-start justify-center cursor-pointer">
+                    <i data-lucide="layout-dashboard" class="w-8 h-8 text-primary mb-4"></i>
+                    <h4 class="text-lg font-bold mb-2 text-white">Dashboard UI</h4>
+                    <p class="text-sm text-neutral-400 font-medium">Web-based request manager with AI filtering.</p>
                 </div>
             </div>
 
@@ -691,7 +728,7 @@
 
     <!-- Footer -->
     <footer class="text-center py-8 text-slate-500 font-medium mt-10 text-sm">
-        <p>VibeLens &copy; 2026. Built with Liquid Glass Architecture.</p>
+        <p>VibeLens v2.0 &copy; 2026. Built with Liquid Glass Architecture.</p>
     </footer>
 
     <!-- Scripts -->

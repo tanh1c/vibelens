@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "vibelens": {
+      "command": "c:/Users/LG/Desktop/Study Material/AI/24-01-2026/VibeLens/vibelens/.venv/Scripts/python.exe",
+      "args": ["-m", "vibeengine.mcp.mcp_server"],
+      "cwd": "c:/Users/LG/Desktop/Study Material/AI/24-01-2026/VibeLens/vibelens",
+      "env": {
+        "PYTHONPATH": "c:/Users/LG/Desktop/Study Material/AI/24-01-2026/VibeLens/vibelens"
+      }
+    }
+  }
+}

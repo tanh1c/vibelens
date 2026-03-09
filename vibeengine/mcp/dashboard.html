@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeLens Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: sans-serif;
+        }
+
+        .req-method-GET {
+            color: #3b82f6;
+            font-weight: bold;
+        }
+
+        .req-method-POST {
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .req-method-PUT {
+            color: #f59e0b;
+            font-weight: bold;
+        }
+
+        .req-method-DELETE {
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        .status-success {
+            color: #10b981;
+        }
+
+        .status-error {
+            color: #ef4444;
+        }
+
+        .status-redirect {
+            color: #f59e0b;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body class="h-screen flex flex-col">
+    <!-- Navbar -->
+    <nav class="glass px-6 py-4 flex justify-between items-center border-b border-gray-800">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded bg-yellow-400 flex items-center justify-center text-black font-bold">VL</div>
+            <h1 class="text-xl font-bold">VibeLens Request Manager</h1>
+        </div>
+        <div>
+            <span class="text-sm text-gray-400">Bridge Status: <span class="text-green-400">● Online</span></span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex overflow-hidden">
+        <!-- Sidebar: Sessions -->
+        <aside class="w-64 glass border-r border-gray-800 flex flex-col overflow-y-auto" id="sessionsList">
+            <div class="p-4 border-b border-gray-800 text-sm font-bold text-gray-400 uppercase tracking-widest">Sessions
+            </div>
+            <!-- Populated via JS -->
+        </aside>
+
+        <!-- Request List -->
+        <div class="flex-1 glass border-r border-gray-800 flex flex-col overflow-y-auto" id="requestsList">
+            <div class="p-4 border-b border-gray-800 flex justify-between items-center bg-black">
+                <h2 class="font-bold text-lg" id="currentSessionName">Select a Session</h2>
+                <div class="flex gap-2 items-center">
+                    <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search URL..."
+                        class="px-3 py-1 bg-white/5 border border-gray-700 rounded text-sm text-white focus:outline-none focus:border-blue-500 w-48">
+                    <button
+                        class="px-3 py-1 bg-indigo-600/60 text-indigo-300 rounded text-sm hover:bg-indigo-600/80 font-bold"
+                        id="btnAiFilter" onclick="aiAutoFilter()">✨ AI Filter</button>
+                    <button class="px-3 py-1 bg-red-500/20 text-red-500 rounded text-sm hover:bg-red-500/40 hidden"
+                        id="btnDeleteSelected" onclick="deleteSelectedRequests()">Delete Selected</button>
+                    <button class="px-3 py-1 bg-red-900/40 text-red-400 rounded text-sm hover:bg-red-900/80"
+                        onclick="deleteCurrentSession()">Delete Session</button>
+                    <button class="px-3 py-1 bg-white/10 rounded text-sm hover:bg-white/20"
+                        onclick="loadRequests()">Refresh</button>
+                </div>
+            </div>
+            <table class="w-full text-left text-sm" id="reqTable">
+                <thead class="bg-white/5 sticky top-0 shadow-md">
+                    <tr>
+                        <th class="px-4 py-2 text-gray-400 w-8"><input type="checkbox" id="selectAll"
+                                onclick="toggleSelectAll()"></th>
+                        <th class="px-4 py-2 text-gray-400">Method</th>
+                        <th class="px-4 py-2 text-gray-400">Status</th>
+                        <th class="px-4 py-2 text-gray-400 w-1/2">URL</th>
+                        <th class="px-4 py-2 text-gray-400">Type</th>
+                        <th class="px-4 py-2 text-gray-400 w-12">Act</th>
+                    </tr>
+                </thead>
+                <tbody id="reqTbody">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Request Detail -->
+        <aside class="w-96 glass flex flex-col overflow-y-auto">
+            <div class="p-4 border-b border-gray-800 font-bold bg-black">Request Detail</div>
+            <div class="p-4 space-y-4" id="reqDetail">
+                <p class="text-gray-500 italic text-sm text-center mt-10">Click a request to view details</p>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        let currentSessionId = null;
+
+        async function loadSessions() {
+            try {
+                const res = await fetch('/sessions');
+                if (!res.ok) return;
+                const data = await res.json();
+                const container = document.getElementById('sessionsList');
+                container.innerHTML = '<div class="p-4 border-b border-gray-800 text-sm font-bold text-gray-400 uppercase tracking-widest">Sessions</div>';
+
+                data.sessions.forEach(session => {
+                    const el = document.createElement('div');
+                    el.className = `p-4 border-b border-gray-800 cursor-pointer hover:bg-white/10 ${session.id === currentSessionId ? 'bg-yellow-400/10 border-l-2 border-l-yellow-400' : ''}`;
+                    el.innerHTML = `
+                        <div class="font-bold text-sm truncate" title="${session.name || session.id}">${session.domain || "Unknown context"}</div>
+                        <div class="text-xs text-gray-400 mt-1 flex justify-between">
+                            <span>Req: ${session.request_count}</span>
+                            <span>${new Date(session.started_at).toLocaleTimeString()}</span>
+                        </div>
+                    `;
+                    el.onclick = () => {
+                        currentSessionId = session.id;
+                        document.getElementById('currentSessionName').innerText = session.domain || "Session Details";
+                        loadSessions(); // Re-render to show active
+                        loadRequests();
+                    };
+                    container.appendChild(el);
+                });
+
+                // Select first available automatically
+                if (!currentSessionId && data.sessions.length > 0) {
+                    currentSessionId = data.sessions[0].id;
+                    document.getElementById('currentSessionName').innerText = data.sessions[0].domain;
+                    loadSessions();
+                    loadRequests();
+                }
+            } catch (e) { console.error("Failed to load sessions:", e); }
+        }
+
+        async function loadRequests() {
+            if (!currentSessionId) return;
+            try {
+                const res = await fetch(`/sessions/${currentSessionId}/requests`);
+                if (!res.ok) return;
+                const data = await res.json();
+
+                const tbody = document.getElementById('reqTbody');
+                tbody.innerHTML = '';
+
+                data.requests.forEach(req => {
+                    const tr = document.createElement('tr');
+                    tr.className = "border-b border-gray-800/50 cursor-pointer hover:bg-white/5 req-row";
+                    tr.setAttribute("data-url", req.url.toLowerCase());
+
+                    let statusClass = "text-gray-400";
+                    if (req.status >= 200 && req.status < 300) statusClass = "status-success";
+                    else if (req.status >= 300 && req.status < 400) statusClass = "status-redirect";
+                    else if (req.status >= 400) statusClass = "status-error";
+
+                    tr.innerHTML = `
+                        <td class="px-4 py-2 text-xs" onclick="event.stopPropagation()"><input type="checkbox" class="req-checkbox" value="${req.id}" onclick="updateDeleteBtn()"></td>
+                        <td class="px-4 py-2 text-xs"><span class="req-method-${req.method}">${req.method}</span></td>
+                        <td class="px-4 py-2 text-xs font-mono ${statusClass}">${req.status || 'Pending'}</td>
+                        <td class="px-4 py-2 text-xs"><div class="truncate max-w-sm" title="${req.url}">${new URL(req.url).pathname}</div></td>
+                        <td class="px-4 py-2 text-xs text-gray-500">${typeof req.mime_type === 'string' ? req.mime_type.split(';')[0] : 'xhr'}</td>
+                        <td class="px-4 py-2 text-xs text-gray-500" onclick="event.stopPropagation()"><button onclick="deleteRequest(${req.id})" class="text-red-500 hover:text-red-300 font-bold" title="Delete">x</button></td>
+                    `;
+                    tr.onclick = () => showDetail(req);
+                    tbody.appendChild(tr);
+                });
+
+                document.getElementById('selectAll').checked = false;
+                updateDeleteBtn();
+                filterTable(); // Run filter after load just in case search box has text
+            } catch (e) { console.error("Failed to load requests:", e); }
+        }
+
+        function filterTable() {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            const rows = document.querySelectorAll("#reqTbody .req-row");
+            rows.forEach(row => {
+                const url = row.getAttribute("data-url");
+                if (url.includes(query)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
+        async function aiAutoFilter() {
+            if (!currentSessionId) return;
+            const btn = document.getElementById("btnAiFilter");
+            const originalText = btn.innerHTML;
+
+            try {
+                btn.innerHTML = "⏳ AI is processing...";
+                btn.disabled = true;
+
+                const res = await fetch(`/sessions/${currentSessionId}/ai-filter`, { method: 'POST' });
+                if (!res.ok) throw new Error("AI filter failed");
+                const data = await res.json();
+
+                const junkIds = data.junk_ids || [];
+                if (junkIds.length === 0) {
+                    alert("AI could not find any clear junk/tracking requests.");
+                    return;
+                }
+
+                // Cick checkbox of junk requests
+                const checkboxes = document.querySelectorAll('.req-checkbox');
+                checkboxes.forEach(cb => {
+                    if (junkIds.includes(parseInt(cb.value))) {
+                        cb.checked = true;
+                    }
+                });
+
+                updateDeleteBtn();
+                alert(`AI found ${junkIds.length} junk requests. They are now selected. Hit Delete Selected to remove them.`);
+
+            } catch (e) {
+                alert("AI Filter Error: " + e.message);
+                console.error(e);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        function showDetail(req) {
+            const container = document.getElementById('reqDetail');
+
+            let headersHtml = '';
+            if (req.headers) {
+                headersHtml = Object.entries(req.headers).map(([k, v]) => `<div><span class="text-gray-400">${k}:</span> <span class="text-blue-200">${v}</span></div>`).join('');
+            }
+            let resHeadersHtml = '';
+            if (req.response_headers) {
+                resHeadersHtml = Object.entries(req.response_headers).map(([k, v]) => `<div><span class="text-gray-400">${k}:</span> <span class="text-blue-200">${v}</span></div>`).join('');
+            }
+
+            container.innerHTML = `
+                <div class="bg-black/50 p-3 rounded text-xs break-all">
+                    <span class="req-method-${req.method}">${req.method}</span> <span class="text-gray-300">${req.url}</span>
+                </div>
+                
+                <div>
+                    <h3 class="text-sm font-bold mb-2 uppercase text-gray-500">Request Headers</h3>
+                    <div class="bg-black/50 p-3 rounded text-xs break-all font-mono space-y-1 h-32 overflow-y-auto custom-scrollbar">
+                        ${headersHtml || 'None'}
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-sm font-bold mb-2 uppercase text-gray-500">Payload / Body</h3>
+                    <div class="bg-black/50 p-3 rounded text-xs break-all font-mono h-32 overflow-y-auto custom-scrollbar whitespace-pre-wrap">
+                        ${req.post_data || 'None'}
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-sm font-bold mb-2 uppercase text-gray-500">Response Headers</h3>
+                    <div class="bg-black/50 p-3 rounded text-xs break-all font-mono space-y-1 h-32 overflow-y-auto custom-scrollbar">
+                        ${resHeadersHtml || 'Pending or none'}
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-sm font-bold mb-2 uppercase text-gray-500">Response Body Preview</h3>
+                    <div class="bg-black/50 p-3 rounded text-xs break-all font-mono h-48 overflow-y-auto custom-scrollbar whitespace-pre-wrap">
+                        ${req.response_body ? (req.response_body.length > 500 ? req.response_body.substring(0, 500) + '...' : req.response_body) : 'No body'}
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleSelectAll() {
+            const selectAllVal = document.getElementById('selectAll').checked;
+            document.querySelectorAll('#reqTbody .req-row').forEach(row => {
+                // Chỉ chọn checkbox nếu dòng request đó đang hiển thị (không bị ẩn bởi bộ lọc Search)
+                if (row.style.display !== 'none') {
+                    const cb = row.querySelector('.req-checkbox');
+                    if (cb) cb.checked = selectAllVal;
+                }
+            });
+            updateDeleteBtn();
+        }
+
+        function updateDeleteBtn() {
+            const checked = document.querySelectorAll('.req-checkbox:checked');
+            const btn = document.getElementById('btnDeleteSelected');
+            if (checked.length > 0) {
+                btn.classList.remove('hidden');
+                btn.innerText = `Delete(${checked.length})`;
+            } else {
+                btn.classList.add('hidden');
+            }
+        }
+
+        async function deleteRequest(id) {
+            if (!confirm("Delete this request?")) return;
+            await fetch(`/requests/${id}`, { method: 'DELETE' });
+            loadRequests();
+        }
+
+        async function deleteSelectedRequests() {
+            const checked = Array.from(document.querySelectorAll('.req-checkbox:checked')).map(cb => parseInt(cb.value));
+            if (checked.length === 0) return;
+            if (!confirm(`Delete ${checked.length} requests ? `)) return;
+
+            await fetch('/requests/bulk-delete', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ request_ids: checked })
+            });
+            document.getElementById('selectAll').checked = false;
+            updateDeleteBtn();
+            loadRequests();
+        }
+
+        async function deleteCurrentSession() {
+            if (!currentSessionId) return;
+            if (!confirm("Permanently delete this entire session and all its requests?")) return;
+            await fetch(`/sessions/${currentSessionId}`, { method: 'DELETE' });
+            currentSessionId = null;
+            document.getElementById('currentSessionName').innerText = "Select a Session";
+            document.getElementById('reqTbody').innerHTML = "";
+            document.getElementById('reqDetail').innerHTML = '<p class="text-gray-500 italic text-sm text-center mt-10">Select a session to view details</p>';
+            loadSessions();
+        }
+
+        // Initialize
+        loadSessions();
+        setInterval(loadSessions, 5000); // Auto refresh
+    </script>
+</body>
+
+</html>

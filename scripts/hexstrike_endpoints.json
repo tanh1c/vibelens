@@ -1,0 +1,2497 @@
+{
+  "extracted_at": "2026-03-09T11:00:40.376595",
+  "hexstrike_dir": "C:\\Users\\LG\\Desktop\\Study Material\\AI\\24-01-2026\\VibeLens\\hexstrike-ai",
+  "server": {
+    "total_endpoints": 156,
+    "tool_count": 90,
+    "tool_names": [
+      "amass",
+      "anew",
+      "angr",
+      "api_fuzzer",
+      "api_schema_analyzer",
+      "arjun",
+      "arp-scan",
+      "autorecon",
+      "binwalk",
+      "browser-agent",
+      "burpsuite-alternative",
+      "checkov",
+      "checksec",
+      "clair",
+      "cloudmapper",
+      "dalfox",
+      "dirb",
+      "dirsearch",
+      "dnsenum",
+      "docker-bench-security",
+      "dotdotpwn",
+      "enum4linux",
+      "enum4linux-ng",
+      "exiftool",
+      "falco",
+      "feroxbuster",
+      "ffuf",
+      "fierce",
+      "foremost",
+      "gau",
+      "gdb",
+      "gdb-peda",
+      "ghidra",
+      "gobuster",
+      "graphql_scanner",
+      "hakrawler",
+      "hashcat",
+      "hashpump",
+      "http-framework",
+      "httpx",
+      "hydra",
+      "jaeles",
+      "john",
+      "jwt_analyzer",
+      "katana",
+      "kube-bench",
+      "kube-hunter",
+      "libc-database",
+      "masscan",
+      "metasploit",
+      "msfvenom",
+      "nbtscan",
+      "netexec",
+      "nikto",
+      "nmap",
+      "nmap-advanced",
+      "nuclei",
+      "objdump",
+      "one-gadget",
+      "pacu",
+      "paramspider",
+      "prowler",
+      "pwninit",
+      "pwntools",
+      "qsreplace",
+      "radare2",
+      "responder",
+      "ropgadget",
+      "ropper",
+      "rpcclient",
+      "rustscan",
+      "scout-suite",
+      "smbmap",
+      "sqlmap",
+      "steghide",
+      "strings",
+      "subfinder",
+      "terrascan",
+      "trivy",
+      "uro",
+      "volatility",
+      "volatility3",
+      "wafw00f",
+      "waybackurls",
+      "wfuzz",
+      "wpscan",
+      "x8",
+      "xsser",
+      "xxd",
+      "zap"
+    ],
+    "categories": {
+      "ai": 3,
+      "bugbounty": 6,
+      "cache": 2,
+      "command": 1,
+      "ctf": 7,
+      "error-handling": 7,
+      "files": 4,
+      "intelligence": 6,
+      "payloads": 1,
+      "process": 11,
+      "processes": 6,
+      "python": 2,
+      "root": 1,
+      "telemetry": 1,
+      "tools": 90,
+      "visual": 3,
+      "vuln-intel": 5
+    }
+  },
+  "mcp": {
+    "total_tools": 148,
+    "tool_names": [
+      "nmap_scan",
+      "gobuster_scan",
+      "nuclei_scan",
+      "prowler_scan",
+      "trivy_scan",
+      "scout_suite_assessment",
+      "cloudmapper_analysis",
+      "pacu_exploitation",
+      "kube_hunter_scan",
+      "kube_bench_cis",
+      "docker_bench_security_scan",
+      "clair_vulnerability_scan",
+      "falco_runtime_monitoring",
+      "checkov_iac_scan",
+      "terrascan_iac_scan",
+      "create_file",
+      "modify_file",
+      "delete_file",
+      "list_files",
+      "generate_payload",
+      "install_python_package",
+      "execute_python_script",
+      "dirb_scan",
+      "nikto_scan",
+      "sqlmap_scan",
+      "metasploit_run",
+      "wpscan_analyze",
+      "enum4linux_scan",
+      "ffuf_scan",
+      "netexec_scan",
+      "amass_scan",
+      "hashcat_crack",
+      "subfinder_scan",
+      "smbmap_scan",
+      "rustscan_fast_scan",
+      "masscan_high_speed",
+      "nmap_advanced_scan",
+      "autorecon_comprehensive",
+      "enum4linux_ng_advanced",
+      "rpcclient_enumeration",
+      "nbtscan_netbios",
+      "arp_scan_discovery",
+      "responder_credential_harvest",
+      "volatility_analyze",
+      "msfvenom_generate",
+      "gdb_analyze",
+      "radare2_analyze",
+      "binwalk_analyze",
+      "ropgadget_search",
+      "checksec_analyze",
+      "xxd_hexdump",
+      "strings_extract",
+      "objdump_analyze",
+      "ghidra_analysis",
+      "pwntools_exploit",
+      "one_gadget_search",
+      "libc_database_lookup",
+      "gdb_peda_debug",
+      "angr_symbolic_execution",
+      "ropper_gadget_search",
+      "pwninit_setup",
+      "feroxbuster_scan",
+      "dotdotpwn_scan",
+      "xsser_scan",
+      "wfuzz_scan",
+      "dirsearch_scan",
+      "katana_crawl",
+      "gau_discovery",
+      "waybackurls_discovery",
+      "arjun_parameter_discovery",
+      "paramspider_mining",
+      "x8_parameter_discovery",
+      "jaeles_vulnerability_scan",
+      "dalfox_xss_scan",
+      "httpx_probe",
+      "anew_data_processing",
+      "qsreplace_parameter_replacement",
+      "uro_url_filtering",
+      "ai_generate_payload",
+      "ai_test_payload",
+      "ai_generate_attack_suite",
+      "api_fuzzer",
+      "graphql_scanner",
+      "jwt_analyzer",
+      "api_schema_analyzer",
+      "comprehensive_api_audit",
+      "volatility3_analyze",
+      "foremost_carving",
+      "steghide_analysis",
+      "exiftool_extract",
+      "hashpump_attack",
+      "hakrawler_crawl",
+      "httpx_probe",
+      "paramspider_discovery",
+      "burpsuite_scan",
+      "zap_scan",
+      "arjun_scan",
+      "wafw00f_scan",
+      "fierce_scan",
+      "dnsenum_scan",
+      "server_health",
+      "get_cache_stats",
+      "clear_cache",
+      "get_telemetry",
+      "list_active_processes",
+      "get_process_status",
+      "terminate_process",
+      "pause_process",
+      "resume_process",
+      "get_process_dashboard",
+      "execute_command",
+      "monitor_cve_feeds",
+      "generate_exploit_from_cve",
+      "discover_attack_chains",
+      "research_zero_day_opportunities",
+      "correlate_threat_intelligence",
+      "advanced_payload_generation",
+      "vulnerability_intelligence_dashboard",
+      "threat_hunting_assistant",
+      "get_live_dashboard",
+      "create_vulnerability_report",
+      "format_tool_output_visual",
+      "create_scan_summary",
+      "display_system_metrics",
+      "analyze_target_intelligence",
+      "select_optimal_tools_ai",
+      "optimize_tool_parameters_ai",
+      "create_attack_chain_ai",
+      "intelligent_smart_scan",
+      "detect_technologies_ai",
+      "ai_reconnaissance_workflow",
+      "ai_vulnerability_assessment",
+      "bugbounty_reconnaissance_workflow",
+      "bugbounty_vulnerability_hunting",
+      "bugbounty_business_logic_testing",
+      "bugbounty_osint_gathering",
+      "bugbounty_file_upload_testing",
+      "bugbounty_comprehensive_assessment",
+      "bugbounty_authentication_bypass_testing",
+      "http_framework_test",
+      "browser_agent_inspect",
+      "http_set_rules",
+      "http_set_scope",
+      "http_repeater",
+      "http_intruder",
+      "burpsuite_alternative_scan",
+      "error_handling_statistics",
+      "test_error_recovery"
+    ]
+  },
+  "all_endpoints": [
+    {
+      "url": "/health",
+      "methods": [
+        "GET"
+      ],
+      "function": "health_check",
+      "docstring": "Health check endpoint with comprehensive tool detection",
+      "params": [],
+      "line": 9029
+    },
+    {
+      "url": "/api/command",
+      "methods": [
+        "POST"
+      ],
+      "function": "generic_command",
+      "docstring": "Execute any command provided in the request with enhanced logging",
+      "params": [
+        "command",
+        "use_cache"
+      ],
+      "line": 9146
+    },
+    {
+      "url": "/api/files/create",
+      "methods": [
+        "POST"
+      ],
+      "function": "create_file",
+      "docstring": "Create a new file",
+      "params": [
+        "binary",
+        "content",
+        "filename"
+      ],
+      "line": 9171
+    },
+    {
+      "url": "/api/files/modify",
+      "methods": [
+        "POST"
+      ],
+      "function": "modify_file",
+      "docstring": "Modify an existing file",
+      "params": [
+        "append",
+        "content",
+        "filename"
+      ],
+      "line": 9189
+    },
+    {
+      "url": "/api/files/delete",
+      "methods": [
+        "DELETE"
+      ],
+      "function": "delete_file",
+      "docstring": "Delete a file or directory",
+      "params": [
+        "filename"
+      ],
+      "line": 9207
+    },
+    {
+      "url": "/api/files/list",
+      "methods": [
+        "GET"
+      ],
+      "function": "list_files",
+      "docstring": "List files in a directory",
+      "params": [],
+      "line": 9223
+    },
+    {
+      "url": "/api/payloads/generate",
+      "methods": [
+        "POST"
+      ],
+      "function": "generate_payload",
+      "docstring": "Generate large payloads for testing",
+      "params": [
+        "filename",
+        "pattern",
+        "size",
+        "type"
+      ],
+      "line": 9235
+    },
+    {
+      "url": "/api/cache/stats",
+      "methods": [
+        "GET"
+      ],
+      "function": "cache_stats",
+      "docstring": "Get cache statistics",
+      "params": [],
+      "line": 9277
+    },
+    {
+      "url": "/api/cache/clear",
+      "methods": [
+        "POST"
+      ],
+      "function": "clear_cache",
+      "docstring": "Clear the cache",
+      "params": [],
+      "line": 9282
+    },
+    {
+      "url": "/api/telemetry",
+      "methods": [
+        "GET"
+      ],
+      "function": "get_telemetry",
+      "docstring": "Get system telemetry",
+      "params": [],
+      "line": 9291
+    },
+    {
+      "url": "/api/processes/list",
+      "methods": [
+        "GET"
+      ],
+      "function": "list_processes",
+      "docstring": "List all active processes",
+      "params": [],
+      "line": 9300
+    },
+    {
+      "url": "/api/processes/status/<int:pid>",
+      "methods": [
+        "GET"
+      ],
+      "function": "get_process_status",
+      "docstring": "Get status of a specific process",
+      "params": [],
+      "line": 9326
+    },
+    {
+      "url": "/api/processes/terminate/<int:pid>",
+      "methods": [
+        "POST"
+      ],
+      "function": "terminate_process",
+      "docstring": "Terminate a specific process",
+      "params": [],
+      "line": 9357
+    },
+    {
+      "url": "/api/processes/pause/<int:pid>",
+      "methods": [
+        "POST"
+      ],
+      "function": "pause_process",
+      "docstring": "Pause a specific process",
+      "params": [],
+      "line": 9379
+    },
+    {
+      "url": "/api/processes/resume/<int:pid>",
+      "methods": [
+        "POST"
+      ],
+      "function": "resume_process",
+      "docstring": "Resume a paused process",
+      "params": [],
+      "line": 9401
+    },
+    {
+      "url": "/api/processes/dashboard",
+      "methods": [
+        "GET"
+      ],
+      "function": "process_dashboard",
+      "docstring": "Get enhanced process dashboard with visual status using ModernVisualEngine",
+      "params": [],
+      "line": 9423
+    },
+    {
+      "url": "/api/visual/vulnerability-card",
+      "methods": [
+        "POST"
+      ],
+      "function": "create_vulnerability_card",
+      "docstring": "Create a beautiful vulnerability card using ModernVisualEngine",
+      "params": [],
+      "line": 9476
+    },
+    {
+      "url": "/api/visual/summary-report",
+      "methods": [
+        "POST"
+      ],
+      "function": "create_summary_report",
+      "docstring": "Create a beautiful summary report using ModernVisualEngine",
+      "params": [],
+      "line": 9497
+    },
+    {
+      "url": "/api/visual/tool-output",
+      "methods": [
+        "POST"
+      ],
+      "function": "format_tool_output",
+      "docstring": "Format tool output using ModernVisualEngine",
+      "params": [],
+      "line": 9519
+    },
+    {
+      "url": "/api/intelligence/analyze-target",
+      "methods": [
+        "POST"
+      ],
+      "function": "analyze_target",
+      "docstring": "Analyze target and create comprehensive profile using Intelligent Decision Engine",
+      "params": [],
+      "line": 9548
+    },
+    {
+      "url": "/api/intelligence/select-tools",
+      "methods": [
+        "POST"
+      ],
+      "function": "select_optimal_tools",
+      "docstring": "Select optimal tools based on target profile and objective",
+      "params": [],
+      "line": 9575
+    },
+    {
+      "url": "/api/intelligence/optimize-parameters",
+      "methods": [
+        "POST"
+      ],
+      "function": "optimize_tool_parameters",
+      "docstring": "Optimize tool parameters based on target profile and context",
+      "params": [],
+      "line": 9610
+    },
+    {
+      "url": "/api/intelligence/create-attack-chain",
+      "methods": [
+        "POST"
+      ],
+      "function": "create_attack_chain",
+      "docstring": "Create an intelligent attack chain based on target profile",
+      "params": [],
+      "line": 9646
+    },
+    {
+      "url": "/api/intelligence/smart-scan",
+      "methods": [
+        "POST"
+      ],
+      "function": "intelligent_smart_scan",
+      "docstring": "Execute an intelligent scan using AI-driven tool selection and parameter optimization with parallel execution",
+      "params": [],
+      "line": 9681
+    },
+    {
+      "url": "/api/intelligence/technology-detection",
+      "methods": [
+        "POST"
+      ],
+      "function": "detect_technologies",
+      "docstring": "Detect technologies and create technology-specific testing recommendations",
+      "params": [],
+      "line": 10050
+    },
+    {
+      "url": "/api/bugbounty/reconnaissance-workflow",
+      "methods": [
+        "POST"
+      ],
+      "function": "create_reconnaissance_workflow",
+      "docstring": "Create comprehensive reconnaissance workflow for bug bounty hunting",
+      "params": [],
+      "line": 10107
+    },
+    {
+      "url": "/api/bugbounty/vulnerability-hunting-workflow",
+      "methods": [
+        "POST"
+      ],
+      "function": "create_vulnerability_hunting_workflow",
+      "docstring": "Create vulnerability hunting workflow prioritized by impact",
+      "params": [],
+      "line": 10145
+    },
+    {
+      "url": "/api/bugbounty/business-logic-workflow",
+      "methods": [
+        "POST"
+      ],
+      "function": "create_business_logic_workflow",
+      "docstring": "Create business logic testing workflow",
+      "params": [],
+      "line": 10181
+    },
+    {
+      "url": "/api/bugbounty/osint-workflow",
+      "methods": [
+        "POST"
+      ],
+      "function": "create_osint_workflow",
+      "docstring": "Create OSINT gathering workflow",
+      "params": [],
+      "line": 10212
+    },
+    {
+      "url": "/api/bugbounty/file-upload-testing",
+      "methods": [
+        "POST"
+      ],
+      "function": "create_file_upload_testing",
+      "docstring": "Create file upload vulnerability testing workflow",
+      "params": [],
+      "line": 10242
+    },
+    {
+      "url": "/api/bugbounty/comprehensive-assessment",
+      "methods": [
+        "POST"
+      ],
+      "function": "create_comprehensive_bugbounty_assessment",
+      "docstring": "Create comprehensive bug bounty assessment combining all workflows",
+      "params": [],
+      "line": 10273
+    },
+    {
+      "url": "/api/tools/nmap",
+      "methods": [
+        "POST"
+      ],
+      "function": "nmap",
+      "docstring": "Execute nmap scan with enhanced logging, caching, and intelligent error handling",
+      "params": [
+        "additional_args",
+        "ports",
+        "scan_type",
+        "target",
+        "use_recovery"
+      ],
+      "line": 10336
+    },
+    {
+      "url": "/api/tools/gobuster",
+      "methods": [
+        "POST"
+      ],
+      "function": "gobuster",
+      "docstring": "Execute gobuster with enhanced logging and intelligent error handling",
+      "params": [
+        "additional_args",
+        "mode",
+        "url",
+        "use_recovery",
+        "wordlist"
+      ],
+      "line": 10386
+    },
+    {
+      "url": "/api/tools/nuclei",
+      "methods": [
+        "POST"
+      ],
+      "function": "nuclei",
+      "docstring": "Execute Nuclei vulnerability scanner with enhanced logging and intelligent error handling",
+      "params": [
+        "additional_args",
+        "severity",
+        "tags",
+        "target",
+        "template",
+        "use_recovery"
+      ],
+      "line": 10438
+    },
+    {
+      "url": "/api/tools/prowler",
+      "methods": [
+        "POST"
+      ],
+      "function": "prowler",
+      "docstring": "Execute Prowler for AWS security assessment",
+      "params": [
+        "additional_args",
+        "checks",
+        "output_dir",
+        "output_format",
+        "profile",
+        "provider",
+        "region"
+      ],
+      "line": 10498
+    },
+    {
+      "url": "/api/tools/trivy",
+      "methods": [
+        "POST"
+      ],
+      "function": "trivy",
+      "docstring": "Execute Trivy for container/filesystem vulnerability scanning",
+      "params": [
+        "additional_args",
+        "output_file",
+        "output_format",
+        "scan_type",
+        "severity",
+        "target"
+      ],
+      "line": 10542
+    },
+    {
+      "url": "/api/tools/scout-suite",
+      "methods": [
+        "POST"
+      ],
+      "function": "scout_suite",
+      "docstring": "Execute Scout Suite for multi-cloud security assessment",
+      "params": [
+        "additional_args",
+        "exceptions",
+        "profile",
+        "provider",
+        "report_dir",
+        "services"
+      ],
+      "line": 10590
+    },
+    {
+      "url": "/api/tools/cloudmapper",
+      "methods": [
+        "POST"
+      ],
+      "function": "cloudmapper",
+      "docstring": "Execute CloudMapper for AWS network visualization and security analysis",
+      "params": [
+        "account",
+        "action",
+        "additional_args",
+        "config"
+      ],
+      "line": 10630
+    },
+    {
+      "url": "/api/tools/pacu",
+      "methods": [
+        "POST"
+      ],
+      "function": "pacu",
+      "docstring": "Execute Pacu for AWS exploitation framework",
+      "params": [
+        "additional_args",
+        "data_services",
+        "modules",
+        "regions",
+        "session_name"
+      ],
+      "line": 10663
+    },
+    {
+      "url": "/api/tools/kube-hunter",
+      "methods": [
+        "POST"
+      ],
+      "function": "kube_hunter",
+      "docstring": "Execute kube-hunter for Kubernetes penetration testing",
+      "params": [
+        "active",
+        "additional_args",
+        "cidr",
+        "interface",
+        "remote",
+        "report",
+        "target"
+      ],
+      "line": 10715
+    },
+    {
+      "url": "/api/tools/kube-bench",
+      "methods": [
+        "POST"
+      ],
+      "function": "kube_bench",
+      "docstring": "Execute kube-bench for CIS Kubernetes benchmark checks",
+      "params": [
+        "additional_args",
+        "config_dir",
+        "output_format",
+        "targets",
+        "version"
+      ],
+      "line": 10759
+    },
+    {
+      "url": "/api/tools/docker-bench-security",
+      "methods": [
+        "POST"
+      ],
+      "function": "docker_bench_security",
+      "docstring": "Execute Docker Bench for Security for Docker security assessment",
+      "params": [
+        "additional_args",
+        "checks",
+        "exclude",
+        "output_file"
+      ],
+      "line": 10795
+    },
+    {
+      "url": "/api/tools/clair",
+      "methods": [
+        "POST"
+      ],
+      "function": "clair",
+      "docstring": "Execute Clair for container vulnerability analysis",
+      "params": [
+        "additional_args",
+        "config",
+        "image",
+        "output_format"
+      ],
+      "line": 10828
+    },
+    {
+      "url": "/api/tools/falco",
+      "methods": [
+        "POST"
+      ],
+      "function": "falco",
+      "docstring": "Execute Falco for runtime security monitoring",
+      "params": [
+        "additional_args",
+        "config_file",
+        "duration",
+        "output_format",
+        "rules_file"
+      ],
+      "line": 10862
+    },
+    {
+      "url": "/api/tools/checkov",
+      "methods": [
+        "POST"
+      ],
+      "function": "checkov",
+      "docstring": "Execute Checkov for infrastructure as code security scanning",
+      "params": [
+        "additional_args",
+        "check",
+        "directory",
+        "framework",
+        "output_format",
+        "skip_check"
+      ],
+      "line": 10895
+    },
+    {
+      "url": "/api/tools/terrascan",
+      "methods": [
+        "POST"
+      ],
+      "function": "terrascan",
+      "docstring": "Execute Terrascan for infrastructure as code security scanning",
+      "params": [
+        "additional_args",
+        "iac_dir",
+        "output_format",
+        "policy_type",
+        "scan_type",
+        "severity"
+      ],
+      "line": 10932
+    },
+    {
+      "url": "/api/tools/dirb",
+      "methods": [
+        "POST"
+      ],
+      "function": "dirb",
+      "docstring": "Execute dirb with enhanced logging",
+      "params": [
+        "additional_args",
+        "url",
+        "wordlist"
+      ],
+      "line": 10966
+    },
+    {
+      "url": "/api/tools/nikto",
+      "methods": [
+        "POST"
+      ],
+      "function": "nikto",
+      "docstring": "Execute nikto with enhanced logging",
+      "params": [
+        "additional_args",
+        "target"
+      ],
+      "line": 10996
+    },
+    {
+      "url": "/api/tools/sqlmap",
+      "methods": [
+        "POST"
+      ],
+      "function": "sqlmap",
+      "docstring": "Execute sqlmap with enhanced logging",
+      "params": [
+        "additional_args",
+        "data",
+        "url"
+      ],
+      "line": 11025
+    },
+    {
+      "url": "/api/tools/metasploit",
+      "methods": [
+        "POST"
+      ],
+      "function": "metasploit",
+      "docstring": "Execute metasploit module with enhanced logging",
+      "params": [
+        "module",
+        "options"
+      ],
+      "line": 11058
+    },
+    {
+      "url": "/api/tools/hydra",
+      "methods": [
+        "POST"
+      ],
+      "function": "hydra",
+      "docstring": "Execute hydra with enhanced logging",
+      "params": [
+        "additional_args",
+        "password",
+        "password_file",
+        "service",
+        "target",
+        "username",
+        "username_file"
+      ],
+      "line": 11102
+    },
+    {
+      "url": "/api/tools/john",
+      "methods": [
+        "POST"
+      ],
+      "function": "john",
+      "docstring": "Execute john with enhanced logging",
+      "params": [
+        "additional_args",
+        "format",
+        "hash_file",
+        "wordlist"
+      ],
+      "line": 11154
+    },
+    {
+      "url": "/api/tools/wpscan",
+      "methods": [
+        "POST"
+      ],
+      "function": "wpscan",
+      "docstring": "Execute wpscan with enhanced logging",
+      "params": [
+        "additional_args",
+        "url"
+      ],
+      "line": 11193
+    },
+    {
+      "url": "/api/tools/enum4linux",
+      "methods": [
+        "POST"
+      ],
+      "function": "enum4linux",
+      "docstring": "Execute enum4linux with enhanced logging",
+      "params": [
+        "additional_args",
+        "target"
+      ],
+      "line": 11222
+    },
+    {
+      "url": "/api/tools/ffuf",
+      "methods": [
+        "POST"
+      ],
+      "function": "ffuf",
+      "docstring": "Execute FFuf web fuzzer with enhanced logging",
+      "params": [
+        "additional_args",
+        "match_codes",
+        "mode",
+        "url",
+        "wordlist"
+      ],
+      "line": 11248
+    },
+    {
+      "url": "/api/tools/netexec",
+      "methods": [
+        "POST"
+      ],
+      "function": "netexec",
+      "docstring": "Execute NetExec (formerly CrackMapExec) with enhanced logging",
+      "params": [
+        "additional_args",
+        "hash",
+        "module",
+        "password",
+        "protocol",
+        "target",
+        "username"
+      ],
+      "line": 11291
+    },
+    {
+      "url": "/api/tools/amass",
+      "methods": [
+        "POST"
+      ],
+      "function": "amass",
+      "docstring": "Execute Amass for subdomain enumeration with enhanced logging",
+      "params": [
+        "additional_args",
+        "domain",
+        "mode"
+      ],
+      "line": 11337
+    },
+    {
+      "url": "/api/tools/hashcat",
+      "methods": [
+        "POST"
+      ],
+      "function": "hashcat",
+      "docstring": "Execute Hashcat for password cracking with enhanced logging",
+      "params": [
+        "additional_args",
+        "attack_mode",
+        "hash_file",
+        "hash_type",
+        "mask",
+        "wordlist"
+      ],
+      "line": 11372
+    },
+    {
+      "url": "/api/tools/subfinder",
+      "methods": [
+        "POST"
+      ],
+      "function": "subfinder",
+      "docstring": "Execute Subfinder for passive subdomain enumeration with enhanced logging",
+      "params": [
+        "additional_args",
+        "all_sources",
+        "domain",
+        "silent"
+      ],
+      "line": 11416
+    },
+    {
+      "url": "/api/tools/smbmap",
+      "methods": [
+        "POST"
+      ],
+      "function": "smbmap",
+      "docstring": "Execute SMBMap for SMB share enumeration with enhanced logging",
+      "params": [
+        "additional_args",
+        "domain",
+        "password",
+        "target",
+        "username"
+      ],
+      "line": 11453
+    },
+    {
+      "url": "/api/tools/rustscan",
+      "methods": [
+        "POST"
+      ],
+      "function": "rustscan",
+      "docstring": "Execute Rustscan for ultra-fast port scanning with enhanced logging",
+      "params": [
+        "additional_args",
+        "batch_size",
+        "ports",
+        "scripts",
+        "target",
+        "timeout",
+        "ulimit"
+      ],
+      "line": 11498
+    },
+    {
+      "url": "/api/tools/masscan",
+      "methods": [
+        "POST"
+      ],
+      "function": "masscan",
+      "docstring": "Execute Masscan for high-speed Internet-scale port scanning with intelligent rate limiting",
+      "params": [
+        "additional_args",
+        "banners",
+        "interface",
+        "ports",
+        "rate",
+        "router_mac",
+        "source_ip",
+        "target"
+      ],
+      "line": 11534
+    },
+    {
+      "url": "/api/tools/nmap-advanced",
+      "methods": [
+        "POST"
+      ],
+      "function": "nmap_advanced",
+      "docstring": "Execute advanced Nmap scans with custom NSE scripts and optimized timing",
+      "params": [
+        "additional_args",
+        "aggressive",
+        "nse_scripts",
+        "os_detection",
+        "ports",
+        "scan_type",
+        "stealth",
+        "target",
+        "timing",
+        "version_detection"
+      ],
+      "line": 11577
+    },
+    {
+      "url": "/api/tools/autorecon",
+      "methods": [
+        "POST"
+      ],
+      "function": "autorecon",
+      "docstring": "Execute AutoRecon for comprehensive automated reconnaissance",
+      "params": [
+        "additional_args",
+        "heartbeat",
+        "output_dir",
+        "port_scans",
+        "service_scans",
+        "target",
+        "timeout"
+      ],
+      "line": 11632
+    },
+    {
+      "url": "/api/tools/enum4linux-ng",
+      "methods": [
+        "POST"
+      ],
+      "function": "enum4linux_ng",
+      "docstring": "Execute Enum4linux-ng for advanced SMB enumeration with enhanced logging",
+      "params": [
+        "additional_args",
+        "domain",
+        "groups",
+        "password",
+        "policy",
+        "shares",
+        "target",
+        "username",
+        "users"
+      ],
+      "line": 11668
+    },
+    {
+      "url": "/api/tools/rpcclient",
+      "methods": [
+        "POST"
+      ],
+      "function": "rpcclient",
+      "docstring": "Execute rpcclient for RPC enumeration with enhanced logging",
+      "params": [
+        "additional_args",
+        "commands",
+        "domain",
+        "password",
+        "target",
+        "username"
+      ],
+      "line": 11723
+    },
+    {
+      "url": "/api/tools/nbtscan",
+      "methods": [
+        "POST"
+      ],
+      "function": "nbtscan",
+      "docstring": "Execute nbtscan for NetBIOS name scanning with enhanced logging",
+      "params": [
+        "additional_args",
+        "target",
+        "timeout",
+        "verbose"
+      ],
+      "line": 11767
+    },
+    {
+      "url": "/api/tools/arp-scan",
+      "methods": [
+        "POST"
+      ],
+      "function": "arp_scan",
+      "docstring": "Execute arp-scan for network discovery with enhanced logging",
+      "params": [
+        "additional_args",
+        "interface",
+        "local_network",
+        "retry",
+        "target",
+        "timeout"
+      ],
+      "line": 11799
+    },
+    {
+      "url": "/api/tools/responder",
+      "methods": [
+        "POST"
+      ],
+      "function": "responder",
+      "docstring": "Execute Responder for credential harvesting with enhanced logging",
+      "params": [
+        "additional_args",
+        "analyze",
+        "duration",
+        "fingerprint",
+        "force_wpad_auth",
+        "interface",
+        "wpad"
+      ],
+      "line": 11836
+    },
+    {
+      "url": "/api/tools/volatility",
+      "methods": [
+        "POST"
+      ],
+      "function": "volatility",
+      "docstring": "Execute Volatility for memory forensics with enhanced logging",
+      "params": [
+        "additional_args",
+        "memory_file",
+        "plugin",
+        "profile"
+      ],
+      "line": 11878
+    },
+    {
+      "url": "/api/tools/msfvenom",
+      "methods": [
+        "POST"
+      ],
+      "function": "msfvenom",
+      "docstring": "Execute MSFVenom to generate payloads with enhanced logging",
+      "params": [
+        "additional_args",
+        "encoder",
+        "format",
+        "iterations",
+        "output_file",
+        "payload"
+      ],
+      "line": 11920
+    },
+    {
+      "url": "/api/tools/gdb",
+      "methods": [
+        "POST"
+      ],
+      "function": "gdb",
+      "docstring": "Execute GDB for binary analysis and debugging with enhanced logging",
+      "params": [
+        "additional_args",
+        "binary",
+        "commands",
+        "script_file"
+      ],
+      "line": 11969
+    },
+    {
+      "url": "/api/tools/radare2",
+      "methods": [
+        "POST"
+      ],
+      "function": "radare2",
+      "docstring": "Execute Radare2 for binary analysis and reverse engineering with enhanced logging",
+      "params": [
+        "additional_args",
+        "binary",
+        "commands"
+      ],
+      "line": 12018
+    },
+    {
+      "url": "/api/tools/binwalk",
+      "methods": [
+        "POST"
+      ],
+      "function": "binwalk",
+      "docstring": "Execute Binwalk for firmware and file analysis with enhanced logging",
+      "params": [
+        "additional_args",
+        "extract",
+        "file_path"
+      ],
+      "line": 12061
+    },
+    {
+      "url": "/api/tools/ropgadget",
+      "methods": [
+        "POST"
+      ],
+      "function": "ropgadget",
+      "docstring": "Search for ROP gadgets in a binary using ROPgadget with enhanced logging",
+      "params": [
+        "additional_args",
+        "binary",
+        "gadget_type"
+      ],
+      "line": 12096
+    },
+    {
+      "url": "/api/tools/checksec",
+      "methods": [
+        "POST"
+      ],
+      "function": "checksec",
+      "docstring": "Check security features of a binary with enhanced logging",
+      "params": [
+        "binary"
+      ],
+      "line": 12129
+    },
+    {
+      "url": "/api/tools/xxd",
+      "methods": [
+        "POST"
+      ],
+      "function": "xxd",
+      "docstring": "Create a hex dump of a file using xxd with enhanced logging",
+      "params": [
+        "additional_args",
+        "file_path",
+        "length",
+        "offset"
+      ],
+      "line": 12154
+    },
+    {
+      "url": "/api/tools/strings",
+      "methods": [
+        "POST"
+      ],
+      "function": "strings",
+      "docstring": "Extract strings from a binary file with enhanced logging",
+      "params": [
+        "additional_args",
+        "file_path",
+        "min_len"
+      ],
+      "line": 12190
+    },
+    {
+      "url": "/api/tools/objdump",
+      "methods": [
+        "POST"
+      ],
+      "function": "objdump",
+      "docstring": "Analyze a binary using objdump with enhanced logging",
+      "params": [
+        "additional_args",
+        "binary",
+        "disassemble"
+      ],
+      "line": 12222
+    },
+    {
+      "url": "/api/tools/ghidra",
+      "methods": [
+        "POST"
+      ],
+      "function": "ghidra",
+      "docstring": "Execute Ghidra for advanced binary analysis and reverse engineering",
+      "params": [
+        "additional_args",
+        "analysis_timeout",
+        "binary",
+        "output_format",
+        "project_name",
+        "script_file"
+      ],
+      "line": 12263
+    },
+    {
+      "url": "/api/tools/pwntools",
+      "methods": [
+        "POST"
+      ],
+      "function": "pwntools",
+      "docstring": "Execute Pwntools for exploit development and automation",
+      "params": [
+        "additional_args",
+        "exploit_type",
+        "script_content",
+        "target_binary",
+        "target_host",
+        "target_port"
+      ],
+      "line": 12303
+    },
+    {
+      "url": "/api/tools/one-gadget",
+      "methods": [
+        "POST"
+      ],
+      "function": "one_gadget",
+      "docstring": "Execute one_gadget to find one-shot RCE gadgets in libc",
+      "params": [
+        "additional_args",
+        "level",
+        "libc_path"
+      ],
+      "line": 12378
+    },
+    {
+      "url": "/api/tools/libc-database",
+      "methods": [
+        "POST"
+      ],
+      "function": "libc_database",
+      "docstring": "Execute libc-database for libc identification and offset lookup",
+      "params": [
+        "action",
+        "additional_args",
+        "libc_id",
+        "symbols"
+      ],
+      "line": 12404
+    },
+    {
+      "url": "/api/tools/gdb-peda",
+      "methods": [
+        "POST"
+      ],
+      "function": "gdb_peda",
+      "docstring": "Execute GDB with PEDA for enhanced debugging and exploitation",
+      "params": [
+        "additional_args",
+        "attach_pid",
+        "binary",
+        "commands",
+        "core_file"
+      ],
+      "line": 12445
+    },
+    {
+      "url": "/api/tools/angr",
+      "methods": [
+        "POST"
+      ],
+      "function": "angr",
+      "docstring": "Execute angr for symbolic execution and binary analysis",
+      "params": [
+        "additional_args",
+        "analysis_type",
+        "avoid_addresses",
+        "binary",
+        "find_address",
+        "script_content"
+      ],
+      "line": 12507
+    },
+    {
+      "url": "/api/tools/ropper",
+      "methods": [
+        "POST"
+      ],
+      "function": "ropper",
+      "docstring": "Execute ropper for advanced ROP/JOP gadget searching",
+      "params": [
+        "additional_args",
+        "arch",
+        "binary",
+        "gadget_type",
+        "quality",
+        "search_string"
+      ],
+      "line": 12598
+    },
+    {
+      "url": "/api/tools/pwninit",
+      "methods": [
+        "POST"
+      ],
+      "function": "pwninit",
+      "docstring": "Execute pwninit for CTF binary exploitation setup",
+      "params": [
+        "additional_args",
+        "binary",
+        "ld",
+        "libc",
+        "template_type"
+      ],
+      "line": 12645
+    },
+    {
+      "url": "/api/tools/feroxbuster",
+      "methods": [
+        "POST"
+      ],
+      "function": "feroxbuster",
+      "docstring": "Execute Feroxbuster for recursive content discovery with enhanced logging",
+      "params": [
+        "additional_args",
+        "threads",
+        "url",
+        "wordlist"
+      ],
+      "line": 12686
+    },
+    {
+      "url": "/api/tools/dotdotpwn",
+      "methods": [
+        "POST"
+      ],
+      "function": "dotdotpwn",
+      "docstring": "Execute DotDotPwn for directory traversal testing with enhanced logging",
+      "params": [
+        "additional_args",
+        "module",
+        "target"
+      ],
+      "line": 12717
+    },
+    {
+      "url": "/api/tools/xsser",
+      "methods": [
+        "POST"
+      ],
+      "function": "xsser",
+      "docstring": "Execute XSSer for XSS vulnerability testing with enhanced logging",
+      "params": [
+        "additional_args",
+        "params",
+        "url"
+      ],
+      "line": 12749
+    },
+    {
+      "url": "/api/tools/wfuzz",
+      "methods": [
+        "POST"
+      ],
+      "function": "wfuzz",
+      "docstring": "Execute Wfuzz for web application fuzzing with enhanced logging",
+      "params": [
+        "additional_args",
+        "url",
+        "wordlist"
+      ],
+      "line": 12782
+    },
+    {
+      "url": "/api/tools/dirsearch",
+      "methods": [
+        "POST"
+      ],
+      "function": "dirsearch",
+      "docstring": "Execute Dirsearch for advanced directory and file discovery with enhanced logging",
+      "params": [
+        "additional_args",
+        "extensions",
+        "recursive",
+        "threads",
+        "url",
+        "wordlist"
+      ],
+      "line": 12816
+    },
+    {
+      "url": "/api/tools/katana",
+      "methods": [
+        "POST"
+      ],
+      "function": "katana",
+      "docstring": "Execute Katana for next-generation crawling and spidering with enhanced logging",
+      "params": [
+        "additional_args",
+        "depth",
+        "form_extraction",
+        "js_crawl",
+        "output_format",
+        "url"
+      ],
+      "line": 12848
+    },
+    {
+      "url": "/api/tools/gau",
+      "methods": [
+        "POST"
+      ],
+      "function": "gau",
+      "docstring": "Execute Gau (Get All URLs) for URL discovery from multiple sources with enhanced logging",
+      "params": [
+        "additional_args",
+        "blacklist",
+        "domain",
+        "include_subs",
+        "providers"
+      ],
+      "line": 12886
+    },
+    {
+      "url": "/api/tools/waybackurls",
+      "methods": [
+        "POST"
+      ],
+      "function": "waybackurls",
+      "docstring": "Execute Waybackurls for historical URL discovery with enhanced logging",
+      "params": [
+        "additional_args",
+        "domain",
+        "get_versions",
+        "no_subs"
+      ],
+      "line": 12923
+    },
+    {
+      "url": "/api/tools/arjun",
+      "methods": [
+        "POST"
+      ],
+      "function": "arjun",
+      "docstring": "Execute Arjun for HTTP parameter discovery with enhanced logging",
+      "params": [
+        "additional_args",
+        "delay",
+        "method",
+        "stable",
+        "threads",
+        "url",
+        "wordlist"
+      ],
+      "line": 12956
+    },
+    {
+      "url": "/api/tools/paramspider",
+      "methods": [
+        "POST"
+      ],
+      "function": "paramspider",
+      "docstring": "Execute ParamSpider for parameter mining from web archives with enhanced logging",
+      "params": [
+        "additional_args",
+        "domain",
+        "exclude",
+        "level",
+        "output"
+      ],
+      "line": 12995
+    },
+    {
+      "url": "/api/tools/x8",
+      "methods": [
+        "POST"
+      ],
+      "function": "x8",
+      "docstring": "Execute x8 for hidden parameter discovery with enhanced logging",
+      "params": [
+        "additional_args",
+        "body",
+        "headers",
+        "method",
+        "url",
+        "wordlist"
+      ],
+      "line": 13029
+    },
+    {
+      "url": "/api/tools/jaeles",
+      "methods": [
+        "POST"
+      ],
+      "function": "jaeles",
+      "docstring": "Execute Jaeles for advanced vulnerability scanning with custom signatures",
+      "params": [
+        "additional_args",
+        "config",
+        "signatures",
+        "threads",
+        "timeout",
+        "url"
+      ],
+      "line": 13064
+    },
+    {
+      "url": "/api/tools/dalfox",
+      "methods": [
+        "POST"
+      ],
+      "function": "dalfox",
+      "docstring": "Execute Dalfox for advanced XSS vulnerability scanning with enhanced logging",
+      "params": [
+        "additional_args",
+        "blind",
+        "custom_payload",
+        "mining_dict",
+        "mining_dom",
+        "pipe_mode",
+        "url"
+      ],
+      "line": 13099
+    },
+    {
+      "url": "/api/tools/httpx",
+      "methods": [
+        "POST"
+      ],
+      "function": "httpx",
+      "docstring": "Execute httpx for fast HTTP probing and technology detection",
+      "params": [
+        "additional_args",
+        "content_length",
+        "probe",
+        "status_code",
+        "target",
+        "tech_detect",
+        "threads",
+        "title",
+        "web_server"
+      ],
+      "line": 13144
+    },
+    {
+      "url": "/api/tools/anew",
+      "methods": [
+        "POST"
+      ],
+      "function": "anew",
+      "docstring": "Execute anew for appending new lines to files (useful for data processing)",
+      "params": [
+        "additional_args",
+        "input_data",
+        "output_file"
+      ],
+      "line": 13194
+    },
+    {
+      "url": "/api/tools/qsreplace",
+      "methods": [
+        "POST"
+      ],
+      "function": "qsreplace",
+      "docstring": "Execute qsreplace for query string parameter replacement",
+      "params": [
+        "additional_args",
+        "replacement",
+        "urls"
+      ],
+      "line": 13223
+    },
+    {
+      "url": "/api/tools/uro",
+      "methods": [
+        "POST"
+      ],
+      "function": "uro",
+      "docstring": "Execute uro for filtering out similar URLs",
+      "params": [
+        "additional_args",
+        "blacklist",
+        "urls",
+        "whitelist"
+      ],
+      "line": 13249
+    },
+    {
+      "url": "/api/tools/http-framework",
+      "methods": [
+        "POST"
+      ],
+      "function": "http_framework_endpoint",
+      "docstring": "Enhanced HTTP testing framework (Burp Suite alternative)",
+      "params": [
+        "action",
+        "cookies",
+        "data",
+        "headers",
+        "max_depth",
+        "max_pages",
+        "method",
+        "url"
+      ],
+      "line": 14048
+    },
+    {
+      "url": "/api/tools/browser-agent",
+      "methods": [
+        "POST"
+      ],
+      "function": "browser_agent_endpoint",
+      "docstring": "AI-powered browser agent for web application inspection",
+      "params": [
+        "action",
+        "active_tests",
+        "headless",
+        "proxy_port",
+        "url",
+        "wait_time"
+      ],
+      "line": 14144
+    },
+    {
+      "url": "/api/tools/burpsuite-alternative",
+      "methods": [
+        "POST"
+      ],
+      "function": "burpsuite_alternative",
+      "docstring": "Comprehensive Burp Suite alternative combining HTTP framework and browser agent",
+      "params": [
+        "headless",
+        "max_depth",
+        "max_pages",
+        "scan_type",
+        "target"
+      ],
+      "line": 14233
+    },
+    {
+      "url": "/api/tools/zap",
+      "methods": [
+        "POST"
+      ],
+      "function": "zap",
+      "docstring": "Execute OWASP ZAP with enhanced logging",
+      "params": [
+        "additional_args",
+        "api_key",
+        "daemon",
+        "format",
+        "host",
+        "output_file",
+        "port",
+        "scan_type",
+        "target"
+      ],
+      "line": 14327
+    },
+    {
+      "url": "/api/tools/wafw00f",
+      "methods": [
+        "POST"
+      ],
+      "function": "wafw00f",
+      "docstring": "Execute wafw00f to identify and fingerprint WAF products with enhanced logging",
+      "params": [
+        "additional_args",
+        "target"
+      ],
+      "line": 14377
+    },
+    {
+      "url": "/api/tools/fierce",
+      "methods": [
+        "POST"
+      ],
+      "function": "fierce",
+      "docstring": "Execute fierce for DNS reconnaissance with enhanced logging",
+      "params": [
+        "additional_args",
+        "dns_server",
+        "domain"
+      ],
+      "line": 14406
+    },
+    {
+      "url": "/api/tools/dnsenum",
+      "methods": [
+        "POST"
+      ],
+      "function": "dnsenum",
+      "docstring": "Execute dnsenum for DNS enumeration with enhanced logging",
+      "params": [
+        "additional_args",
+        "dns_server",
+        "domain",
+        "wordlist"
+      ],
+      "line": 14439
+    },
+    {
+      "url": "/api/python/install",
+      "methods": [
+        "POST"
+      ],
+      "function": "install_python_package",
+      "docstring": "Install a Python package in a virtual environment",
+      "params": [
+        "env_name",
+        "package"
+      ],
+      "line": 14477
+    },
+    {
+      "url": "/api/python/execute",
+      "methods": [
+        "POST"
+      ],
+      "function": "execute_python_script",
+      "docstring": "Execute a Python script in a virtual environment",
+      "params": [
+        "env_name",
+        "filename",
+        "script"
+      ],
+      "line": 14507
+    },
+    {
+      "url": "/api/ai/generate_payload",
+      "methods": [
+        "POST"
+      ],
+      "function": "ai_generate_payload",
+      "docstring": "Generate AI-powered contextual payloads for security testing",
+      "params": [
+        "attack_type",
+        "complexity",
+        "technology",
+        "url"
+      ],
+      "line": 14758
+    },
+    {
+      "url": "/api/ai/test_payload",
+      "methods": [
+        "POST"
+      ],
+      "function": "ai_test_payload",
+      "docstring": "Test generated payload against target with AI analysis",
+      "params": [
+        "method",
+        "payload",
+        "target_url"
+      ],
+      "line": 14788
+    },
+    {
+      "url": "/api/tools/api_fuzzer",
+      "methods": [
+        "POST"
+      ],
+      "function": "api_fuzzer",
+      "docstring": "Advanced API endpoint fuzzing with intelligent parameter discovery",
+      "params": [
+        "base_url",
+        "endpoints",
+        "methods",
+        "wordlist"
+      ],
+      "line": 14850
+    },
+    {
+      "url": "/api/tools/graphql_scanner",
+      "methods": [
+        "POST"
+      ],
+      "function": "graphql_scanner",
+      "docstring": "Advanced GraphQL security scanning and introspection",
+      "params": [
+        "endpoint",
+        "introspection",
+        "query_depth",
+        "test_mutations"
+      ],
+      "line": 14907
+    },
+    {
+      "url": "/api/tools/jwt_analyzer",
+      "methods": [
+        "POST"
+      ],
+      "function": "jwt_analyzer",
+      "docstring": "Advanced JWT token analysis and vulnerability testing",
+      "params": [
+        "jwt_token",
+        "target_url"
+      ],
+      "line": 15014
+    },
+    {
+      "url": "/api/tools/api_schema_analyzer",
+      "methods": [
+        "POST"
+      ],
+      "function": "api_schema_analyzer",
+      "docstring": "Analyze API schemas and identify potential security issues",
+      "params": [
+        "paths",
+        "schema_type",
+        "schema_url"
+      ],
+      "line": 15132
+    },
+    {
+      "url": "/api/tools/volatility3",
+      "methods": [
+        "POST"
+      ],
+      "function": "volatility3",
+      "docstring": "Execute Volatility3 for advanced memory forensics with enhanced logging",
+      "params": [
+        "additional_args",
+        "memory_file",
+        "output_file",
+        "plugin"
+      ],
+      "line": 15244
+    },
+    {
+      "url": "/api/tools/foremost",
+      "methods": [
+        "POST"
+      ],
+      "function": "foremost",
+      "docstring": "Execute Foremost for file carving with enhanced logging",
+      "params": [
+        "additional_args",
+        "file_types",
+        "input_file",
+        "output_dir"
+      ],
+      "line": 15284
+    },
+    {
+      "url": "/api/tools/steghide",
+      "methods": [
+        "POST"
+      ],
+      "function": "steghide",
+      "docstring": "Execute Steghide for steganography analysis with enhanced logging",
+      "params": [
+        "action",
+        "additional_args",
+        "cover_file",
+        "embed_file",
+        "output_file",
+        "passphrase"
+      ],
+      "line": 15324
+    },
+    {
+      "url": "/api/tools/exiftool",
+      "methods": [
+        "POST"
+      ],
+      "function": "exiftool",
+      "docstring": "Execute ExifTool for metadata extraction with enhanced logging",
+      "params": [
+        "additional_args",
+        "file_path",
+        "output_format",
+        "tags"
+      ],
+      "line": 15373
+    },
+    {
+      "url": "/api/tools/hashpump",
+      "methods": [
+        "POST"
+      ],
+      "function": "hashpump",
+      "docstring": "Execute HashPump for hash length extension attacks with enhanced logging",
+      "params": [
+        "additional_args",
+        "append_data",
+        "data",
+        "key_length",
+        "signature"
+      ],
+      "line": 15412
+    },
+    {
+      "url": "/api/tools/hakrawler",
+      "methods": [
+        "POST"
+      ],
+      "function": "hakrawler",
+      "docstring": "Execute Hakrawler for web endpoint discovery with enhanced logging",
+      "params": [
+        "additional_args",
+        "depth",
+        "forms",
+        "robots",
+        "sitemap",
+        "url",
+        "wayback"
+      ],
+      "line": 15448
+    },
+    {
+      "url": "/api/vuln-intel/cve-monitor",
+      "methods": [
+        "POST"
+      ],
+      "function": "cve_monitor",
+      "docstring": "Monitor CVE databases for new vulnerabilities with AI analysis",
+      "params": [
+        "hours",
+        "keywords",
+        "severity_filter"
+      ],
+      "line": 15505
+    },
+    {
+      "url": "/api/vuln-intel/exploit-generate",
+      "methods": [
+        "POST"
+      ],
+      "function": "exploit_generate",
+      "docstring": "Generate exploits from vulnerability data using AI",
+      "params": [
+        "cve_id",
+        "evasion_level",
+        "exploit_type",
+        "target_arch",
+        "target_description",
+        "target_ip",
+        "target_os",
+        "target_port"
+      ],
+      "line": 15559
+    },
+    {
+      "url": "/api/vuln-intel/attack-chains",
+      "methods": [
+        "POST"
+      ],
+      "function": "discover_attack_chains",
+      "docstring": "Discover multi-stage attack possibilities",
+      "params": [
+        "attack_depth",
+        "include_zero_days",
+        "target_software"
+      ],
+      "line": 15632
+    },
+    {
+      "url": "/api/vuln-intel/threat-feeds",
+      "methods": [
+        "POST"
+      ],
+      "function": "threat_intelligence_feeds",
+      "docstring": "Aggregate and correlate threat intelligence from multiple sources",
+      "params": [
+        "indicators",
+        "sources",
+        "timeframe"
+      ],
+      "line": 15709
+    },
+    {
+      "url": "/api/vuln-intel/zero-day-research",
+      "methods": [
+        "POST"
+      ],
+      "function": "zero_day_research",
+      "docstring": "Automated zero-day vulnerability research using AI analysis",
+      "params": [
+        "analysis_depth",
+        "source_code_url",
+        "target_software"
+      ],
+      "line": 15844
+    },
+    {
+      "url": "/api/ai/advanced-payload-generation",
+      "methods": [
+        "POST"
+      ],
+      "function": "advanced_payload_generation",
+      "docstring": "Generate advanced payloads with AI-powered evasion techniques",
+      "params": [
+        "attack_type",
+        "custom_constraints",
+        "evasion_level",
+        "target_context"
+      ],
+      "line": 15983
+    },
+    {
+      "url": "/api/ctf/create-challenge-workflow",
+      "methods": [
+        "POST"
+      ],
+      "function": "create_ctf_challenge_workflow",
+      "docstring": "Create specialized workflow for CTF challenge",
+      "params": [
+        "category",
+        "description",
+        "difficulty",
+        "name",
+        "points",
+        "target"
+      ],
+      "line": 16125
+    },
+    {
+      "url": "/api/ctf/auto-solve-challenge",
+      "methods": [
+        "POST"
+      ],
+      "function": "auto_solve_ctf_challenge",
+      "docstring": "Attempt to automatically solve a CTF challenge",
+      "params": [
+        "category",
+        "description",
+        "difficulty",
+        "name",
+        "points",
+        "target"
+      ],
+      "line": 16165
+    },
+    {
+      "url": "/api/ctf/team-strategy",
+      "methods": [
+        "POST"
+      ],
+      "function": "create_ctf_team_strategy",
+      "docstring": "Create optimal team strategy for CTF competition",
+      "params": [
+        "category",
+        "challenges",
+        "description",
+        "difficulty",
+        "name",
+        "points",
+        "target",
+        "team_skills"
+      ],
+      "line": 16205
+    },
+    {
+      "url": "/api/ctf/suggest-tools",
+      "methods": [
+        "POST"
+      ],
+      "function": "suggest_ctf_tools",
+      "docstring": "Suggest optimal tools for CTF challenge based on description and category",
+      "params": [
+        "category",
+        "description"
+      ],
+      "line": 16245
+    },
+    {
+      "url": "/api/ctf/cryptography-solver",
+      "methods": [
+        "POST"
+      ],
+      "function": "ctf_cryptography_solver",
+      "docstring": "Advanced cryptography challenge solver with multiple attack methods",
+      "params": [
+        "additional_info",
+        "cipher_text",
+        "cipher_type",
+        "key_hint",
+        "known_plaintext"
+      ],
+      "line": 16282
+    },
+    {
+      "url": "/api/ctf/forensics-analyzer",
+      "methods": [
+        "POST"
+      ],
+      "function": "ctf_forensics_analyzer",
+      "docstring": "Advanced forensics challenge analyzer with multiple investigation techniques",
+      "params": [
+        "analysis_type",
+        "check_steganography",
+        "extract_hidden",
+        "file_path"
+      ],
+      "line": 16380
+    },
+    {
+      "url": "/api/ctf/binary-analyzer",
+      "methods": [
+        "POST"
+      ],
+      "function": "ctf_binary_analyzer",
+      "docstring": "Advanced binary analysis for reverse engineering and pwn challenges",
+      "params": [
+        "analysis_depth",
+        "binary_path",
+        "check_protections",
+        "find_gadgets"
+      ],
+      "line": 16523
+    },
+    {
+      "url": "/api/process/execute-async",
+      "methods": [
+        "POST"
+      ],
+      "function": "execute_command_async",
+      "docstring": "Execute command asynchronously using enhanced process management",
+      "params": [
+        "command",
+        "context"
+      ],
+      "line": 16703
+    },
+    {
+      "url": "/api/process/get-task-result/<task_id>",
+      "methods": [
+        "GET"
+      ],
+      "function": "get_async_task_result",
+      "docstring": "Get result of asynchronous task",
+      "params": [],
+      "line": 16730
+    },
+    {
+      "url": "/api/process/pool-stats",
+      "methods": [
+        "GET"
+      ],
+      "function": "get_process_pool_stats",
+      "docstring": "Get process pool statistics and performance metrics",
+      "params": [],
+      "line": 16751
+    },
+    {
+      "url": "/api/process/cache-stats",
+      "methods": [
+        "GET"
+      ],
+      "function": "get_cache_stats",
+      "docstring": "Get advanced cache statistics",
+      "params": [],
+      "line": 16768
+    },
+    {
+      "url": "/api/process/clear-cache",
+      "methods": [
+        "POST"
+      ],
+      "function": "clear_process_cache",
+      "docstring": "Clear the advanced cache",
+      "params": [],
+      "line": 16785
+    },
+    {
+      "url": "/api/process/resource-usage",
+      "methods": [
+        "GET"
+      ],
+      "function": "get_resource_usage",
+      "docstring": "Get current system resource usage and trends",
+      "params": [],
+      "line": 16802
+    },
+    {
+      "url": "/api/process/performance-dashboard",
+      "methods": [
+        "GET"
+      ],
+      "function": "get_performance_dashboard",
+      "docstring": "Get performance dashboard data",
+      "params": [],
+      "line": 16821
+    },
+    {
+      "url": "/api/process/terminate-gracefully/<int:pid>",
+      "methods": [
+        "POST"
+      ],
+      "function": "terminate_process_gracefully",
+      "docstring": "Terminate process with graceful degradation",
+      "params": [
+        "timeout"
+      ],
+      "line": 16854
+    },
+    {
+      "url": "/api/process/auto-scaling",
+      "methods": [
+        "POST"
+      ],
+      "function": "configure_auto_scaling",
+      "docstring": "Configure auto-scaling settings",
+      "params": [
+        "enabled",
+        "thresholds"
+      ],
+      "line": 16883
+    },
+    {
+      "url": "/api/process/scale-pool",
+      "methods": [
+        "POST"
+      ],
+      "function": "manual_scale_pool",
+      "docstring": "Manually scale the process pool",
+      "params": [
+        "action",
+        "count"
+      ],
+      "line": 16909
+    },
+    {
+      "url": "/api/process/health-check",
+      "methods": [
+        "GET"
+      ],
+      "function": "process_health_check",
+      "docstring": "Comprehensive health check of the process management system",
+      "params": [],
+      "line": 16953
+    },
+    {
+      "url": "/api/error-handling/statistics",
+      "methods": [
+        "GET"
+      ],
+      "function": "get_error_statistics",
+      "docstring": "Get error handling statistics",
+      "params": [],
+      "line": 17053
+    },
+    {
+      "url": "/api/error-handling/test-recovery",
+      "methods": [
+        "POST"
+      ],
+      "function": "test_error_recovery",
+      "docstring": "Test error recovery system with simulated failures",
+      "params": [
+        "error_type",
+        "parameters",
+        "target",
+        "tool_name"
+      ],
+      "line": 17067
+    },
+    {
+      "url": "/api/error-handling/fallback-chains",
+      "methods": [
+        "GET"
+      ],
+      "function": "get_fallback_chains",
+      "docstring": "Get available fallback tool chains",
+      "params": [],
+      "line": 17113
+    },
+    {
+      "url": "/api/error-handling/execute-with-recovery",
+      "methods": [
+        "POST"
+      ],
+      "function": "execute_with_recovery_endpoint",
+      "docstring": "Execute a command with intelligent error handling and recovery",
+      "params": [
+        "command",
+        "max_attempts",
+        "parameters",
+        "tool_name",
+        "use_cache"
+      ],
+      "line": 17141
+    },
+    {
+      "url": "/api/error-handling/classify-error",
+      "methods": [
+        "POST"
+      ],
+      "function": "classify_error_endpoint",
+      "docstring": "Classify an error message",
+      "params": [
+        "error_message"
+      ],
+      "line": 17174
+    },
+    {
+      "url": "/api/error-handling/parameter-adjustments",
+      "methods": [
+        "POST"
+      ],
+      "function": "get_parameter_adjustments",
+      "docstring": "Get parameter adjustments for a tool and error type",
+      "params": [
+        "error_type",
+        "original_params",
+        "tool_name"
+      ],
+      "line": 17206
+    },
+    {
+      "url": "/api/error-handling/alternative-tools",
+      "methods": [
+        "GET"
+      ],
+      "function": "get_alternative_tools",
+      "docstring": "Get alternative tools for a given tool",
+      "params": [],
+      "line": 17239
+    }
+  ]
+}
