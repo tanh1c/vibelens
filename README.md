@@ -10,8 +10,8 @@ VibeLens bridges your browser, a local server, and your AI assistant (via Model 
 
 | Document | Description |
 |----------|-------------|
-| **[USECASES.md](USECASES.md)** | Hướng dẫn chi tiết 8 use cases (Vietnamese) |
-| **[SECURITY_GUIDE.md](SECURITY_GUIDE.md)** | Bug Bounty & Security Research Guide |
+| **[USECASES.md](docs/USECASES.md)** | Hướng dẫn chi tiết 8 use cases (Vietnamese) |
+| **[SECURITY_GUIDE.md](docs/SECURITY_GUIDE.md)** | Bug Bounty & Security Research Guide |
 | **[scripts/HEXSTRIKE_UPDATE_GUIDE.md](scripts/HEXSTRIKE_UPDATE_GUIDE.md)** | Guide to update HexStrike integration |
 | **[vibeengine/skills/SKILL.md](vibeengine/skills/SKILL.md)** | Skill file for AI assistants |
 
@@ -55,8 +55,8 @@ VibeLens bridges your browser, a local server, and your AI assistant (via Model 
 | **CTF / Vuln Intel** | Solve crypto challenges, analyze binaries, or pull CVE intelligence |
 | **Bug Bounty Hunting** | IDOR, XSS, SQLi testing on captured endpoints |
 
-📖 **See [USECASES.md](USECASES.md) for detailed guides.**
-📖 **See [SECURITY_GUIDE.md](SECURITY_GUIDE.md) for bug bounty workflow.**
+📖 **See [USECASES.md](docs/USECASES.md) for detailed guides.**
+📖 **See [SECURITY_GUIDE.md](docs/SECURITY_GUIDE.md) for bug bounty workflow.**
 
 ---
 
